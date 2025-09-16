@@ -36,7 +36,7 @@ const readTime = content ? calculateReadTime(content) : 0;
     <div class="max-w-3xl mx-auto">
       <header class="text-center mb-12">
         <div
-          class="flex items-center justify-center gap-4 text-sm text-zinc-500 mb-4 flex-wrap"
+          class="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-4 flex-wrap"
         >
           <FormattedDate date={pubDate} />
           {
@@ -63,19 +63,19 @@ const readTime = content ? calculateReadTime(content) : 0;
 
         {
           updatedDate && (
-            <p class="text-sm text-zinc-500 italic mb-4">
+            <p class="text-sm text-muted-foreground italic mb-4">
               Last updated on <FormattedDate date={updatedDate} />
             </p>
           )
         }
 
         <h1
-          class="text-4xl md:text-5xl font-bold text-zinc-900 leading-tight mb-2"
+          class="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-2"
         >
           {title}
         </h1>
 
-        <h2 class="text-lg text-zinc-600 mb-6 leading-relaxed">
+        <h2 class="text-lg text-muted-foreground mb-6 leading-relaxed">
           {description}
         </h2>
 
@@ -85,7 +85,7 @@ const readTime = content ? calculateReadTime(content) : 0;
               {tags.map((tag) => (
                 <a
                   href={`/posts?tag=${encodeURIComponent(tag)}`}
-                  class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-zinc-100 text-zinc-700 hover:bg-zinc-200 transition-colors capitalize"
+                  class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors capitalize"
                 >
                   {tag}
                 </a>
@@ -94,7 +94,7 @@ const readTime = content ? calculateReadTime(content) : 0;
           )
         }
 
-        <hr class="border-zinc-200 mb-12" />
+        <hr class="border-border mb-12" />
       </header>
 
       <div class="prose prose-lg max-w-none">

@@ -2,15 +2,16 @@
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
+import DarkModeToggle from "./DarkModeToggle.astro";
 ---
 
 <header
-  class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200/50"
+  class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
 >
-  <nav class="max-w-2xl mx-auto px-6 py-4">
+  <nav class="max-w-3xl mx-auto px-6 py-4">
     <div class="flex items-center justify-between">
-      <h2 class="text-xl font-bold text-zinc-900">
-        <a href="/" class="hover:text-zinc-700 transition-colors"
+      <h2 class="text-xl font-bold text-foreground">
+        <a href="/" class="hover:text-muted-foreground transition-colors"
           >{SITE_TITLE}</a
         >
       </h2>
@@ -18,16 +19,17 @@ import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
       <div class="hidden md:flex items-center space-x-8">
         <HeaderLink
           href="/posts"
-          class="text-zinc-600 hover:text-zinc-900 transition-colors font-medium"
+          class="text-muted-foreground hover:text-foreground transition-colors font-medium"
           >Posts</HeaderLink
         >
       </div>
 
       <div class="flex items-center space-x-4">
+        <DarkModeToggle />
         <a
           href="https://aryanranderiya.com"
           target="_blank"
-          class="text-zinc-400 hover:text-zinc-600 transition-colors"
+          class="text-muted-foreground hover:text-foreground transition-colors"
         >
           <span class="sr-only">Visit Aryan's website</span>
           <WebIcon size={20} className="w-5 h-5" />
@@ -35,7 +37,7 @@ import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
         <a
           href="https://twitter.com/aryanranderiya"
           target="_blank"
-          class="text-zinc-400 hover:text-zinc-600 transition-colors"
+          class="text-muted-foreground hover:text-foreground transition-colors"
         >
           <span class="sr-only">Follow Aryan on Twitter</span>
           <TwitterIcon size={20} className="w-5 h-5" />
@@ -43,7 +45,7 @@ import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
         <a
           href="https://github.com/aryanranderiya/blog"
           target="_blank"
-          class="text-zinc-400 hover:text-zinc-600 transition-colors"
+          class="text-muted-foreground hover:text-foreground transition-colors"
         >
           <span class="sr-only">Go to blog's GitHub repo</span>
           <GitHubIcon size={20} className="w-5 h-5" />

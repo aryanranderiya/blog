@@ -21,7 +21,7 @@ const posts = (await getCollection("blog")).sort(
       <div class="relative">
         <Input type="text" placeholder="Search posts..." id="searchInput" />
         <SearchIcon
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-zinc-400"
+          className="absolute right-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-muted-foreground"
         />
       </div>
     </div>
@@ -30,7 +30,7 @@ const posts = (await getCollection("blog")).sort(
     <div class="w-full overflow-x-auto">
       <div class="flex space-x-2 p-4 min-w-max">
         <button
-          class="tag-filter active inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-zinc-900 text-white hover:bg-zinc-800 transition-colors flex-shrink-0 cursor-pointer hover:text-white"
+          class="tag-filter active inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex-shrink-0 cursor-pointer"
           data-tag=""
         >
           All Posts
@@ -42,7 +42,7 @@ const posts = (await getCollection("blog")).sort(
             .sort()
             .map((tag) => (
               <button
-                class="tag-filter inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-zinc-100 text-zinc-700 hover:bg-zinc-200 hover:text-zinc-600 transition-colors cursor-pointer text-nowrap capitalize flex-shrink-0"
+                class="tag-filter inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer text-nowrap capitalize flex-shrink-0"
                 data-tag={tag}
               >
                 {tag}
@@ -59,7 +59,7 @@ const posts = (await getCollection("blog")).sort(
         posts.map((post) => {
           return (
             <article
-              class="post-item border-b border-zinc-200 pb-6 last:border-b-0"
+              class="post-item border-b border-border pb-6 last:border-b-0"
               data-post={JSON.stringify({
                 title: post.data.title.toLowerCase(),
                 description: post.data.description.toLowerCase(),
@@ -69,15 +69,15 @@ const posts = (await getCollection("blog")).sort(
             >
               <a href={`/${post.id}/`} class="group block">
                 <div class="space-y-1">
-                  <h2 class="text-xl font-bold text-zinc-900 group-hover:text-zinc-700 transition-colors leading-tight">
+                  <h2 class="text-xl font-bold text-foreground group-hover:text-muted-foreground transition-colors leading-tight">
                     {post.data.title}
                   </h2>
 
                   <div class="flex justify-between items-end">
-                    <p class="text-zinc-500 leading-relaxed line-clamp-2">
+                    <p class="text-muted-foreground leading-relaxed line-clamp-2">
                       {post.data.description}
                     </p>
-                    <div class="text-sm text-zinc-400 text-nowrap">
+                    <div class="text-sm text-muted-foreground text-nowrap">
                       <FormattedDate date={post.data.pubDate} />
                     </div>
                   </div>
@@ -93,11 +93,13 @@ const posts = (await getCollection("blog")).sort(
   <!-- No Results Message -->
   <div class="text-center py-16 hidden" id="noResults">
     <div class="flex justify-center items-center flex-col">
-      <div class="text-6xl mb-4 mx-auto text-zinc-400">
+      <div class="text-6xl mb-4 mx-auto text-muted-foreground">
         <SearchIcon width={70} height={70} />
       </div>
-      <h3 class="text-2xl font-semibold text-zinc-900 mb-2">No posts found</h3>
-      <p class="text-zinc-600">
+      <h3 class="text-2xl font-semibold text-foreground mb-2">
+        No posts found
+      </h3>
+      <p class="text-muted-foreground">
         Try adjusting your search criteria or browse all posts.
       </p>
     </div>
@@ -127,13 +129,13 @@ const posts = (await getCollection("blog")).sort(
       currentTag = tagParam;
       tagFilters.forEach((filter) => {
         filter.classList.remove("active");
-        filter.classList.remove("bg-zinc-900", "text-white");
-        filter.classList.add("bg-zinc-100", "text-zinc-700");
+        filter.classList.remove("bg-primary", "text-primary-foreground");
+        filter.classList.add("bg-muted", "text-muted-foreground");
 
         if (filter.getAttribute("data-tag") === tagParam) {
           filter.classList.add("active");
-          filter.classList.remove("bg-zinc-100", "text-zinc-700");
-          filter.classList.add("bg-zinc-900", "text-white");
+          filter.classList.remove("bg-muted", "text-muted-foreground");
+          filter.classList.add("bg-primary", "text-primary-foreground");
         }
       });
     }
@@ -178,13 +180,13 @@ const posts = (await getCollection("blog")).sort(
       filter.addEventListener("click", () => {
         tagFilters.forEach((f) => {
           f.classList.remove("active");
-          f.classList.remove("bg-zinc-900", "text-white");
-          f.classList.add("bg-zinc-100", "text-zinc-700");
+          f.classList.remove("bg-primary", "text-primary-foreground");
+          f.classList.add("bg-muted", "text-muted-foreground");
         });
 
         filter.classList.add("active");
-        filter.classList.remove("bg-zinc-100", "text-zinc-700");
-        filter.classList.add("bg-zinc-900", "text-white");
+        filter.classList.remove("bg-muted", "text-muted-foreground");
+        filter.classList.add("bg-primary", "text-primary-foreground");
 
         currentTag = filter.getAttribute("data-tag") || "";
         filterPosts();

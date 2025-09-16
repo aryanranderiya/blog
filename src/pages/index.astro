@@ -8,20 +8,28 @@ import { WebIcon } from "@/components/icons/icons";
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <div class="mb-16 space-y-6">
-    <h1 class="text-5xl font-black text-zinc-900 tracking-tighter">
+    <h1 class="text-5xl font-black text-foreground tracking-tighter">
       hi i'm aryan.
     </h1>
-    <p class="text-xl text-zinc-600 leading-relaxed">
-      A clean, minimalistic <a href="https://astro.build/">Astro</a> blog starter
-      template designed with modern aesthetics and exceptional typography.
+    <p class="text-xl text-muted-foreground leading-relaxed">
+      A clean, minimalistic <a
+        href="https://astro.build/"
+        class="text-foreground underline underline-offset-2 hover:text-primary transition-colors"
+        >Astro</a
+      > blog starter template designed with modern aesthetics and exceptional typography.
     </p>
+
+    <div class="flex items-center gap-3 text-muted-foreground">
+      <WebIcon size={20} className="w-5 h-5" />
+      <span class="text-sm">Built with modern web technologies</span>
+    </div>
 
     <div class="grid items-center gap-2">
       <Input placeholder="youremail@gmail.com" />
       <RaisedButton color="#0091ff"> Sign Up </RaisedButton>
     </div>
 
-    <p class="text-xl text-zinc-600 leading-relaxed">
+    <p class="text-xl text-muted-foreground leading-relaxed">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, iste
       ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum mollitia
       deleniti alias repellat doloremque quod explicabo aliquam molestiae

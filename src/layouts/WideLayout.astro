@@ -20,9 +20,16 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+    <script is:inline>
+      // Initialize theme before page renders to prevent flash
+      (function () {
+        const theme = localStorage.getItem("theme") || "light";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+      })();
+    </script>
   </head>
 
-  <body class="min-h-screen h-fit bg-white">
+  <body class="min-h-screen h-fit bg-background">
     <Navbar />
     <main class={`${maxWidth} mx-auto px-6 py-12 h-full`}>
       <slot />

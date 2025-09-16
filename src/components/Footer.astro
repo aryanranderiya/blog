@@ -4,17 +4,17 @@ import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
 const today = new Date();
 ---
 
-<footer class="bg-zinc-50 border-t border-zinc-200 mt-20">
+<footer class="bg-muted/30 dark:bg-zinc-900 border-t border-border mt-20">
   <div class="max-w-6xl mx-auto px-6 py-12">
     <div class="text-center">
-      <p class="text-zinc-600 mb-6">
+      <p class="text-muted-foreground mb-6">
         &copy; {today.getFullYear()} Aryan Randeriya. All rights reserved.
       </p>
       <div class="flex justify-center items-center space-x-6">
         <a
           href="https://aryanranderiya.com"
           target="_blank"
-          class="text-zinc-400 hover:text-zinc-600 transition-colors duration-200"
+          class="text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           <span class="sr-only">Visit Aryan's website</span>
           <WebIcon size={24} className="w-6 h-6" />
@@ -22,7 +22,7 @@ const today = new Date();
         <a
           href="https://twitter.com/aryanranderiya"
           target="_blank"
-          class="text-zinc-400 hover:text-zinc-600 transition-colors duration-200"
+          class="text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           <span class="sr-only">Follow Aryan on Twitter</span>
           <TwitterIcon size={24} className="w-6 h-6" />
@@ -30,7 +30,7 @@ const today = new Date();
         <a
           href="https://github.com/aryanranderiya/blog"
           target="_blank"
-          class="text-zinc-400 hover:text-zinc-600 transition-colors duration-200"
+          class="text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           <span class="sr-only">Go to blog's GitHub repo</span>
           <GitHubIcon size={24} className="w-6 h-6" />
