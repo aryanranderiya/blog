@@ -4,85 +4,105 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import Header from "../components/Header.astro";
+import Navbar from "../components/Navbar.astro";
+import { calculateReadTime } from "../lib/utils";
 import "../styles/global.css";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & {
+  content?: string;
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, content } =
+  Astro.props;
+const readTime = content ? calculateReadTime(content) : 0;
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
-      }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
-      }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-    </style>
   </head>
 
-  <body>
-    <Header />
-    <main>
+  <body class="min-h-screen bg-white">
+    <Navbar />
+    <main class="max-w-4xl mx-auto px-6 py-12">
       <article>
-        <div class="hero-image">
-          {
-            heroImage && (
-              <Image width={1020} height={510} src={heroImage} alt="" />
-            )
-          }
-        </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
+        {
+          heroImage && (
+            <div class="mb-12">
+              <Image
+                width={1020}
+                height={510}
+                src={heroImage}
+                alt=""
+                class="w-full h-auto rounded-2xl shadow-sm"
+              />
+            </div>
+          )
+        }
+
+        <div class="max-w-3xl mx-auto">
+          <header class="text-center mb-12">
+            <div
+              class="flex items-center justify-center gap-4 text-sm text-zinc-500 mb-4 flex-wrap"
+            >
               <FormattedDate date={pubDate} />
               {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
+                readTime > 0 && (
+                  <span class="flex items-center gap-1">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    {readTime} min read
+                  </span>
                 )
               }
             </div>
-            <h1>{title}</h1>
-            <hr />
+
+            {
+              updatedDate && (
+                <p class="text-sm text-zinc-500 italic mb-4">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </p>
+              )
+            }
+
+            <h1
+              class="text-4xl md:text-5xl font-bold text-zinc-900 mb-6 leading-tight"
+            >
+              {title}
+            </h1>
+
+            {
+              tags && tags.length > 0 && (
+                <div class="flex items-center justify-center gap-2 flex-wrap mb-8">
+                  {tags.map((tag) => (
+                    <a
+                      href={`/search?tag=${encodeURIComponent(tag)}`}
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-zinc-100 text-zinc-700 hover:bg-zinc-200 transition-colors"
+                    >
+                      {tag}
+                    </a>
+                  ))}
+                </div>
+              )
+            }
+
+            <hr class="border-zinc-200 mb-12" />
+          </header>
+
+          <div class="prose prose-lg max-w-none">
+            <slot />
           </div>
-          <slot />
         </div>
       </article>
     </main>
