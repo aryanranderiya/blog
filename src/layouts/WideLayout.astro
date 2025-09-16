@@ -22,9 +22,9 @@ const {
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="min-h-screen bg-white">
+  <body class="min-h-screen h-fit bg-white">
     <Navbar />
-    <main class={`${maxWidth} mx-auto px-6 py-12`}>
+    <main class={`${maxWidth} mx-auto px-6 py-12 h-full`}>
       <slot />
     </main>
     <Footer />
