@@ -19,17 +19,10 @@ const isDevelopment = import.meta.env.DEV;
       </h2>
 
       <div class="hidden md:flex items-center space-x-8">
-        <HeaderLink
-          href="/posts"
-          class="text-muted-foreground hover:text-foreground transition-colors font-medium"
-          >Posts</HeaderLink
-        >
+        <HeaderLink href="/posts" class="font-medium">Posts</HeaderLink>
         {
           isDevelopment && (
-            <HeaderLink
-              href="/create"
-              class="text-muted-foreground hover:text-foreground transition-colors font-medium"
-            >
+            <HeaderLink href="/create" class="font-medium">
               Create
             </HeaderLink>
           )

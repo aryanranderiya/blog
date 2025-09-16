@@ -1,13 +1,23 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { Input } from "@/components/ui/input.tsx";
 import { RaisedButton } from "@/components/ui/raised-button";
-import { WebIcon } from "@/components/icons/icons";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import MainLayout from "../layouts/MainLayout.astro";
+import BlogPostCard from "../components/BlogPostCard.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+  )
+  .slice(0, 5);
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <div class="mb-16 space-y-6">
+  <div class="mb-10 space-y-6 px-3">
     <h1 class="text-5xl font-black text-foreground tracking-tighter">
       hi i'm aryan.
     </h1>
@@ -19,16 +29,13 @@ import { WebIcon } from "@/components/icons/icons";
       > blog starter template designed with modern aesthetics and exceptional typography.
     </p>
 
-    <div class="flex items-center gap-3 text-muted-foreground">
-      <WebIcon size={20} className="w-5 h-5" />
-      <span class="text-sm">Built with modern web technologies</span>
-    </div>
-
     <div class="grid items-center gap-2">
       <Input placeholder="youremail@gmail.com" />
       <RaisedButton color="#0091ff"> Sign Up </RaisedButton>
     </div>
+  </div>
 
+  <div class="space-y-6 p-3 pt-0">
     <p class="text-xl text-muted-foreground leading-relaxed">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, iste
       ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum mollitia
@@ -41,5 +48,29 @@ import { WebIcon } from "@/components/icons/icons";
       fugit, explicabo aspernatur autem odit porro dolorem est nam neque quam
       placeat reprehenderit, et harum esse voluptatem iure!
     </p>
+  </div>
+
+  <section class="my-5">
+    <div class="flex border-separate flex-col divide-zinc-700 divide">
+      {posts.map((post) => <BlogPostCard post={post} variant="compact" />)}
+
+      {
+        posts.length === 0 && (
+          <p class="text-muted-foreground text-center py-8">
+            No posts yet.{" "}
+            <a href="/create" class="text-primary hover:underline">
+              Create your first post
+            </a>
+            .
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <div class="mx-auto w-full flex justify-center">
+    <a href="/posts">
+      <RaisedButton> View All Posts </RaisedButton>
+    </a>
   </div>
 </MainLayout>

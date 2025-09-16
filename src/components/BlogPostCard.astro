@@ -1,0 +1,91 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+
+export interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      tags?: string[];
+      readingTime?: number;
+      author?: string;
+      slug?: string;
+    };
+  };
+  variant?: "default" | "compact";
+  class?: string;
+  "data-post"?: string;
+}
+
+const {
+  post,
+  variant = "default",
+  class: className,
+  "data-post": dataPost,
+  ...props
+} = Astro.props;
+const href = `/${post.id}/`;
+---
+
+<article
+  class={`group last:border-b-0 post-item ${
+    variant === "compact" ? "py-4 px-3 hover:bg-zinc-600/10" : "pb-6"
+  } ${className || ""}`}
+  data-post={dataPost}
+  {...props}
+>
+  <a href={href} class="group block">
+    <div class="space-y-1">
+      <h3
+        class={`font-bold text-foreground leading-tight ${
+          variant === "compact"
+            ? "text-xl"
+            : "text-xl group-hover:text-primary transition-colors"
+        }`}
+      >
+        {post.data.title}
+      </h3>
+
+      <div class="flex justify-between items-end">
+        <p class="text-muted-foreground leading-relaxed line-clamp-2">
+          {post.data.description}
+        </p>
+        {
+          variant === "compact" && (
+            <div class="text-sm text-muted-foreground text-nowrap">
+              <FormattedDate date={post.data.pubDate} />
+            </div>
+          )
+        }
+      </div>
+
+      {
+        variant === "default" && (
+          <div class="flex items-center gap-4 text-sm text-muted-foreground">
+            <FormattedDate date={post.data.pubDate} />
+            {post.data.readingTime && (
+              <span>{post.data.readingTime} min read</span>
+            )}
+            {post.data.author && <span>by {post.data.author}</span>}
+          </div>
+        )
+      }
+
+      {
+        variant === "default" &&
+          post.data.tags &&
+          post.data.tags.length > 0 && (
+            <div class="flex gap-2 flex-wrap">
+              {post.data.tags.map((tag) => (
+                <span class="px-2 py-1 bg-secondary text-secondary-foreground rounded-md text-xs">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )
+      }
+    </div>
+  </a>
+</article>

@@ -4,15 +4,38 @@ import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import { SITE_TITLE } from "@/consts";
 import WideLayout from "@/layouts/WideLayout.astro";
-import { SearchIcon } from "@/components/icons/icons";
+import {
+  SearchIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+} from "@/components/icons/icons";
 import MainLayout from "@/layouts/MainLayout.astro";
+import BlogPostCard from "@/components/BlogPostCard.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// Group posts by year
+const postsByYear = posts.reduce(
+  (acc, post) => {
+    const year = post.data.pubDate.getFullYear();
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+  },
+  {} as Record<number, typeof posts>
+);
+
+// Get sorted years (newest first)
+const years = Object.keys(postsByYear)
+  .map(Number)
+  .sort((a, b) => b - a);
 ---
 
-<MainLayout
+<WideLayout
   title={`Blog Posts - ${SITE_TITLE}`}
   description="Browse and search all blog posts"
 >
@@ -54,38 +77,41 @@ const posts = (await getCollection("blog")).sort(
   </div>
 
   <section>
-    <div class="space-y-6" id="results">
+    <div class="space-y-6 max-w-2xl mx-auto" id="results">
       {
-        posts.map((post) => {
-          return (
-            <article
-              class="post-item border-b border-border pb-6 last:border-b-0"
-              data-post={JSON.stringify({
-                title: post.data.title.toLowerCase(),
-                description: post.data.description.toLowerCase(),
-                tags: (post.data.tags || []).map((tag) => tag.toLowerCase()),
-                slug: post.id,
-              })}
+        years.map((year) => (
+          <div class="year-section">
+            <button
+              class="year-toggle flex items-center gap-4 mb-6 w-full text-left hover:opacity-80 transition-opacity cursor-pointer"
+              data-year={year}
             >
-              <a href={`/${post.id}/`} class="group block">
-                <div class="space-y-1">
-                  <h2 class="text-xl font-bold text-foreground group-hover:text-muted-foreground transition-colors leading-tight">
-                    {post.data.title}
-                  </h2>
+              <h2 class="text-sm text-muted-foreground">{year}</h2>
+              <div class="h-px bg-border flex-1" />
+              <ChevronDownIcon
+                size={16}
+                className="chevron-icon transition-transform duration-200 text-muted-foreground"
+              />
+            </button>
 
-                  <div class="flex justify-between items-end">
-                    <p class="text-muted-foreground leading-relaxed line-clamp-2">
-                      {post.data.description}
-                    </p>
-                    <div class="text-sm text-muted-foreground text-nowrap">
-                      <FormattedDate date={post.data.pubDate} />
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </article>
-          );
-        })
+            <div class="year-posts" data-year-content={year}>
+              {postsByYear[year].map((post) => (
+                <BlogPostCard
+                  post={post}
+                  variant="compact"
+                  data-post={JSON.stringify({
+                    title: post.data.title.toLowerCase(),
+                    description: post.data.description.toLowerCase(),
+                    tags: (post.data.tags || []).map((tag) =>
+                      tag.toLowerCase()
+                    ),
+                    slug: post.id,
+                    year: year,
+                  })}
+                />
+              ))}
+            </div>
+          </div>
+        ))
       }
     </div>
   </section>
@@ -113,8 +139,36 @@ const posts = (await getCollection("blog")).sort(
     const noResults = document.getElementById("noResults") as HTMLElement;
     const tagFilters = document.querySelectorAll(".tag-filter");
     const postItems = document.querySelectorAll(".post-item");
+    const yearToggleButtons = document.querySelectorAll(".year-toggle");
+    const yearSections = document.querySelectorAll(".year-section");
 
     let currentTag = "";
+
+    // Year toggle functionality
+    yearToggleButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const year = button.getAttribute("data-year");
+        const yearContent = document.querySelector(
+          `[data-year-content="${year}"]`
+        );
+        const yearSection = button.closest(".year-section");
+        const chevronIcon = button.querySelector(".chevron-icon");
+
+        if (yearContent && yearSection && chevronIcon) {
+          const isCollapsed = yearContent.classList.contains("hidden");
+
+          if (isCollapsed) {
+            yearContent.classList.remove("hidden");
+            chevronIcon.classList.remove("-rotate-90");
+            chevronIcon.classList.add("rotate-0");
+          } else {
+            yearContent.classList.add("hidden");
+            chevronIcon.classList.remove("rotate-0");
+            chevronIcon.classList.add("-rotate-90");
+          }
+        }
+      });
+    });
 
     // Check for URL parameters
     const urlParams = new URLSearchParams(window.location.search);
@@ -144,6 +198,7 @@ const posts = (await getCollection("blog")).sort(
       if (!searchInput) return;
       const query = searchInput.value.toLowerCase().trim();
       let visibleCount = 0;
+      const yearVisibility: Record<string, number> = {};
 
       postItems.forEach((item) => {
         const dataPost = item.getAttribute("data-post");
@@ -162,7 +217,24 @@ const posts = (await getCollection("blog")).sort(
         const shouldShow = matchesSearch && matchesTag;
 
         (item as HTMLElement).style.display = shouldShow ? "block" : "none";
-        if (shouldShow) visibleCount++;
+        if (shouldShow) {
+          visibleCount++;
+          const year = postData.year.toString();
+          yearVisibility[year] = (yearVisibility[year] || 0) + 1;
+        }
+      });
+
+      // Show/hide year sections based on whether they have visible posts
+      yearSections.forEach((section) => {
+        const yearToggle = section.querySelector(".year-toggle") as HTMLElement;
+        const year = yearToggle?.getAttribute("data-year");
+
+        if (year) {
+          const hasVisiblePosts = yearVisibility[year] > 0;
+          (section as HTMLElement).style.display = hasVisiblePosts
+            ? "block"
+            : "none";
+        }
       });
 
       if (results) results.style.display = visibleCount > 0 ? "block" : "none";
@@ -196,4 +268,4 @@ const posts = (await getCollection("blog")).sort(
     // Initial filter on page load
     filterPosts();
   </script>
-</MainLayout>
+</WideLayout>

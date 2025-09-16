@@ -2,59 +2,25 @@ import type { APIRoute } from "astro";
 import fs from "fs";
 import path from "path";
 
+// Disable prerendering for this API endpoint
+export const prerender = false;
+
 // Only allow in development
 const isDevelopment = import.meta.env.DEV;
 
-function convertYooptaToMarkdown(content: string): string {
-  try {
-    // If content is JSON (Yoopta format), try to convert to simple markdown
-    const yooptaContent = JSON.parse(content);
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+}
 
-    // Simple conversion logic - this is basic and can be enhanced
-    let markdown = "";
-
-    for (const blockId in yooptaContent) {
-      const block = yooptaContent[blockId];
-
-      if (block.type === "HeadingOne") {
-        markdown += `# ${block.value[0]?.children[0]?.text || ""}\n\n`;
-      } else if (block.type === "HeadingTwo") {
-        markdown += `## ${block.value[0]?.children[0]?.text || ""}\n\n`;
-      } else if (block.type === "HeadingThree") {
-        markdown += `### ${block.value[0]?.children[0]?.text || ""}\n\n`;
-      } else if (block.type === "Paragraph") {
-        const text =
-          block.value[0]?.children?.map((child: any) => child.text).join("") ||
-          "";
-        markdown += `${text}\n\n`;
-      } else if (block.type === "Blockquote") {
-        const text =
-          block.value[0]?.children?.map((child: any) => child.text).join("") ||
-          "";
-        markdown += `> ${text}\n\n`;
-      } else if (block.type === "BulletedList") {
-        const text =
-          block.value[0]?.children?.map((child: any) => child.text).join("") ||
-          "";
-        markdown += `- ${text}\n`;
-      } else if (block.type === "NumberedList") {
-        const text =
-          block.value[0]?.children?.map((child: any) => child.text).join("") ||
-          "";
-        markdown += `1. ${text}\n`;
-      } else if (block.type === "Code") {
-        const text =
-          block.value[0]?.children?.map((child: any) => child.text).join("") ||
-          "";
-        markdown += `\`\`\`\n${text}\n\`\`\`\n\n`;
-      }
-    }
-
-    return markdown.trim();
-  } catch (error) {
-    // If parsing fails, return the content as-is
-    return content;
-  }
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -84,30 +50,48 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Convert Yoopta content to markdown
-    const markdownContent = convertYooptaToMarkdown(content);
+    // Content is now already in markdown format from the frontend
+    const markdownContent = content;
 
-    // Create filename from title (sanitized)
-    const filename = frontmatter.title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .trim();
+    // Generate slug from title if not provided
+    const slug = frontmatter.slug || generateSlug(frontmatter.title);
 
-    // Create frontmatter string
+    // Calculate reading time
+    const readingTime = calculateReadingTime(markdownContent);
+
+    // Create complete frontmatter
     const frontmatterString = `---
 title: "${frontmatter.title}"
 description: "${frontmatter.description}"
-pubDate: ${frontmatter.pubDate}
-tags: [${frontmatter.tags.map((tag: string) => `"${tag}"`).join(", ")}]
+pubDate: "${frontmatter.pubDate}"
+slug: "${slug}"
+readingTime: ${readingTime}
+tags: [${frontmatter.tags.map((tag: string) => `"${tag}"`).join(", ")}]${
+      frontmatter.heroImage ? `\nheroImage: "${frontmatter.heroImage}"` : ""
+    }${frontmatter.author ? `\nauthor: "${frontmatter.author}"` : ""}${
+      frontmatter.draft ? `\ndraft: ${frontmatter.draft}` : ""
+    }
 ---
 
 `;
 
     const fullContent = frontmatterString + markdownContent;
     const blogDir = path.join(process.cwd(), "src", "content", "blog");
-    const filePath = path.join(blogDir, `${filename}.md`);
+    const filePath = path.join(blogDir, `${slug}.md`);
+
+    // Check if file already exists
+    if (fs.existsSync(filePath) && !frontmatter.allowOverwrite) {
+      return new Response(
+        JSON.stringify({
+          error: "File already exists",
+          suggestion: "Use a different title or enable overwrite",
+        }),
+        {
+          status: 409,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
 
     // Ensure the blog directory exists
     if (!fs.existsSync(blogDir)) {
@@ -120,7 +104,9 @@ tags: [${frontmatter.tags.map((tag: string) => `"${tag}"`).join(", ")}]
     return new Response(
       JSON.stringify({
         success: true,
-        filename: `${filename}.md`,
+        filename: `${slug}.md`,
+        slug: slug,
+        readingTime: readingTime,
         message: "Blog post saved successfully",
       }),
       {
