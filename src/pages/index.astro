@@ -1,74 +1,36 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { Input } from "@/components/ui/input.tsx";
+import { RaisedButton } from "@/components/ui/raised-button";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body class="min-h-screen bg-white">
-    <Navbar />
-    <main class="max-w-4xl mx-auto px-6 py-16">
-      <div class="mb-16 space-y-6">
-        <h1 class="text-5xl font-bold text-zinc-900 tracking-tighter">
-          hi i'm aryan
-        </h1>
-        <p class="text-xl text-zinc-600 max-w-2xl leading-relaxed">
-          A clean, minimalistic <a
-            href="https://astro.build/"
-            class="text-zinc-900 underline underline-offset-4 decoration-zinc-300 hover:decoration-zinc-600 transition-colors"
-            >Astro</a
-          > blog starter template designed with modern aesthetics and exceptional
-          typography.
-        </p>
+<MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="mb-16 space-y-6">
+    <h1 class="text-5xl font-black text-zinc-900 tracking-tighter">
+      hi i'm aryan.
+    </h1>
+    <p class="text-xl text-zinc-600 leading-relaxed">
+      A clean, minimalistic <a href="https://astro.build/">Astro</a> blog starter
+      template designed with modern aesthetics and exceptional typography.
+    </p>
 
-        <p class="text-xl text-zinc-600 max-w-2xl leading-relaxed">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur,
-          iste ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum
-          mollitia deleniti alias repellat doloremque quod explicabo aliquam
-          molestiae repudiandae, deserunt aut libero in aspernatur iure. Quae
-          fugit at in ducimus id laborum quod a labore incidunt repellendus.
-          Soluta aut quidem hic sunt vel eaque corporis, quasi quos, voluptatem
-          excepturi impedit ratione non itaque dolores eum! Numquam temporibus
-          unde atque asperiores aut velit neque, accusamus quia, quibusdam eius
-          dolor ducimus. Nemo error fugit, explicabo aspernatur autem odit porro
-          dolorem est nam neque quam placeat reprehenderit, et harum esse
-          voluptatem iure!
-        </p>
+    <div class="grid items-center gap-2">
+      <Input placeholder="youremail@gmail.com" />
+      <RaisedButton color="#0091ff"> Sign Up </RaisedButton>
+    </div>
 
-        <p class="text-xl text-zinc-600 max-w-2xl leading-relaxed">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur,
-          iste ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum
-          mollitia deleniti alias repellat doloremque quod explicabo aliquam
-          molestiae repudiandae, deserunt aut libero in aspernatur iure. Quae
-          fugit at in ducimus id laborum quod a labore incidunt repellendus.
-          Soluta aut quidem hic sunt vel eaque corporis, quasi quos, voluptatem
-          excepturi impedit ratione non itaque dolores eum! Numquam temporibus
-          unde atque asperiores aut velit neque, accusamus quia, quibusdam eius
-          dolor ducimus. Nemo error fugit, explicabo aspernatur autem odit porro
-          dolorem est nam neque quam placeat reprehenderit, et harum esse
-          voluptatem iure!
-        </p>
-
-        <p class="text-xl text-zinc-600 max-w-2xl leading-relaxed">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur,
-          iste ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum
-          mollitia deleniti alias repellat doloremque quod explicabo aliquam
-          molestiae repudiandae, deserunt aut libero in aspernatur iure. Quae
-          fugit at in ducimus id laborum quod a labore incidunt repellendus.
-          Soluta aut quidem hic sunt vel eaque corporis, quasi quos, voluptatem
-          excepturi impedit ratione non itaque dolores eum! Numquam temporibus
-          unde atque asperiores aut velit neque, accusamus quia, quibusdam eius
-          dolor ducimus. Nemo error fugit, explicabo aspernatur autem odit porro
-          dolorem est nam neque quam placeat reprehenderit, et harum esse
-          voluptatem iure!
-        </p>
-      </div>
-    </main>
-    <Footer />
-  </body>
-</html>
+    <p class="text-xl text-zinc-600 leading-relaxed">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, iste
+      ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum mollitia
+      deleniti alias repellat doloremque quod explicabo aliquam molestiae
+      repudiandae, deserunt aut libero in aspernatur iure. Quae fugit at in
+      ducimus id laborum quod a labore incidunt repellendus. Soluta aut quidem
+      hic sunt vel eaque corporis, quasi quos, voluptatem excepturi impedit
+      ratione non itaque dolores eum! Numquam temporibus unde atque asperiores
+      aut velit neque, accusamus quia, quibusdam eius dolor ducimus. Nemo error
+      fugit, explicabo aspernatur autem odit porro dolorem est nam neque quam
+      placeat reprehenderit, et harum esse voluptatem iure!
+    </p>
+  </div>
+</MainLayout>

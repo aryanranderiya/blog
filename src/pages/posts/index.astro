@@ -1,11 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import BaseHead from "../../components/BaseHead.astro";
-import Footer from "../../components/Footer.astro";
+import WideLayout from "../../layouts/WideLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
-import Navbar from "../../components/Navbar.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { SITE_TITLE } from "../../consts";
 import { calculateReadTime } from "../../lib/utils";
 
 const posts = (await getCollection("blog")).sort(
@@ -13,116 +11,109 @@ const posts = (await getCollection("blog")).sort(
 );
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body class="min-h-screen bg-white">
-    <Navbar />
-    <main class="max-w-6xl mx-auto px-6 py-16">
-      <div class="flex items-center justify-between mb-12">
-        <h1 class="text-4xl font-bold text-zinc-900">Blog Posts</h1>
-        <a
-          href="/search"
-          class="inline-flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 rounded-full font-medium hover:bg-zinc-800 transition-colors"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          Search Posts
-        </a>
-      </div>
+<WideLayout
+  title={`Blog Posts - ${SITE_TITLE}`}
+  description="Browse all blog posts"
+>
+  <div class="flex items-center justify-between mb-12">
+    <h1 class="text-4xl font-bold text-zinc-900">Blog Posts</h1>
+    <a
+      href="/search"
+      class="inline-flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 rounded-full font-medium hover:bg-zinc-800 transition-colors"
+    >
+      <svg
+        class="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      Search Posts
+    </a>
+  </div>
 
-      <section>
-        <div class="grid gap-8">
-          {
-            posts.map((post, index) => {
-              const readTime = calculateReadTime(post.body || "");
-              const isFirstPost = index === 0;
+  <section>
+    <div class="grid gap-8">
+      {
+        posts.map((post, index) => {
+          const readTime = calculateReadTime(post.body || "");
+          const isFirstPost = index === 0;
 
-              return (
-                <article class={isFirstPost ? "mb-8" : ""}>
-                  <a href={`/blog/${post.id}/`} class="group block">
-                    <div
-                      class={`grid ${isFirstPost ? "md:grid-cols-2" : "md:grid-cols-5"} gap-6 items-center`}
+          return (
+            <article class={isFirstPost ? "mb-8" : ""}>
+              <a href={`/blog/${post.id}/`} class="group block">
+                <div
+                  class={`grid ${isFirstPost ? "md:grid-cols-2" : "md:grid-cols-5"} gap-6 items-center`}
+                >
+                  {post.data.heroImage && (
+                    <div class={isFirstPost ? "" : "md:col-span-2"}>
+                      <Image
+                        width={isFirstPost ? 600 : 400}
+                        height={isFirstPost ? 300 : 200}
+                        src={post.data.heroImage}
+                        alt=""
+                        class="w-full h-auto rounded-xl shadow-sm group-hover:shadow-lg transition-shadow duration-300"
+                      />
+                    </div>
+                  )}
+
+                  <div class={isFirstPost ? "" : "md:col-span-3"}>
+                    <h2
+                      class={`font-bold text-zinc-900 group-hover:text-zinc-700 transition-colors leading-tight mb-3 ${
+                        isFirstPost
+                          ? "text-3xl md:text-4xl"
+                          : "text-xl md:text-2xl"
+                      }`}
                     >
-                      {post.data.heroImage && (
-                        <div class={isFirstPost ? "" : "md:col-span-2"}>
-                          <Image
-                            width={isFirstPost ? 600 : 400}
-                            height={isFirstPost ? 300 : 200}
-                            src={post.data.heroImage}
-                            alt=""
-                            class="w-full h-auto rounded-xl shadow-sm group-hover:shadow-lg transition-shadow duration-300"
-                          />
-                        </div>
-                      )}
+                      {post.data.title}
+                    </h2>
 
-                      <div class={isFirstPost ? "" : "md:col-span-3"}>
-                        <h2
-                          class={`font-bold text-zinc-900 group-hover:text-zinc-700 transition-colors leading-tight mb-3 ${
-                            isFirstPost
-                              ? "text-3xl md:text-4xl"
-                              : "text-xl md:text-2xl"
-                          }`}
+                    <div class="flex items-center gap-4 text-sm text-zinc-500 mb-4 flex-wrap">
+                      <FormattedDate date={post.data.pubDate} />
+                      <span class="flex items-center gap-1">
+                        <svg
+                          class="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
-                          {post.data.title}
-                        </h2>
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        {readTime} min read
+                      </span>
+                    </div>
 
-                        <div class="flex items-center gap-4 text-sm text-zinc-500 mb-4 flex-wrap">
-                          <FormattedDate date={post.data.pubDate} />
-                          <span class="flex items-center gap-1">
-                            <svg
-                              class="w-4 h-4"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                            {readTime} min read
+                    {post.data.tags && post.data.tags.length > 0 && (
+                      <div class="flex items-center gap-2 flex-wrap">
+                        {post.data.tags.slice(0, 3).map((tag) => (
+                          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-zinc-100 text-zinc-700">
+                            {tag}
                           </span>
-                        </div>
-
-                        {post.data.tags && post.data.tags.length > 0 && (
-                          <div class="flex items-center gap-2 flex-wrap">
-                            {post.data.tags.slice(0, 3).map((tag) => (
-                              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-zinc-100 text-zinc-700">
-                                {tag}
-                              </span>
-                            ))}
-                            {post.data.tags.length > 3 && (
-                              <span class="text-xs text-zinc-500">
-                                +{post.data.tags.length - 3} more
-                              </span>
-                            )}
-                          </div>
+                        ))}
+                        {post.data.tags.length > 3 && (
+                          <span class="text-xs text-zinc-500">
+                            +{post.data.tags.length - 3} more
+                          </span>
                         )}
                       </div>
-                    </div>
-                  </a>
-                </article>
-              );
-            })
-          }
-        </div>
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+                    )}
+                  </div>
+                </div>
+              </a>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+</WideLayout>

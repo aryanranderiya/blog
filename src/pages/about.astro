@@ -1,44 +1,45 @@
 ---
-import AboutHeroImage from "../assets/blog-placeholder-about.jpg";
-import Layout from "../layouts/BlogPost.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<Layout
-  title="About Me"
-  description="Learn more about Aryan Randeriya"
-  pubDate={new Date("September 17 2025")}
-  heroImage={AboutHeroImage}
->
-  <p>
-    Hi! I'm Aryan Randeriya, a passionate developer and blogger. Welcome to my
-    personal blog where I share my thoughts, experiences, and insights about
-    technology, development, and life.
-  </p>
+<MainLayout title="About Me" description="Learn more about Aryan Randeriya">
+  <div class="prose prose-lg max-w-none">
+    <h1 class="text-4xl font-bold text-zinc-900 mb-8">About Me</h1>
 
-  <p>You can find me on various platforms:</p>
+    <p>
+      Hi! I'm Aryan Randeriya, a passionate developer and blogger. Welcome to my
+      personal blog where I share my thoughts, experiences, and insights about
+      technology, development, and life.
+    </p>
 
-  <ul>
-    <li>
-      <strong>Website:</strong>
-      <a href="https://aryanranderiya.com" target="_blank"
-        >aryanranderiya.com</a>
-    </li>
-    <li>
-      <strong>Twitter:</strong>
-      <a href="https://twitter.com/aryanranderiya" target="_blank"
-        >@aryanranderiya</a>
-    </li>
-    <li>
-      <strong>GitHub:</strong>
-      <a href="https://github.com/aryanranderiya/blog" target="_blank"
-        >github.com/aryanranderiya/blog</a>
-    </li>
-  </ul>
+    <p>You can find me on various platforms:</p>
 
-  <p>
-    This blog is built with Astro and serves as a place where I document my
-    learning journey, share tutorials, and discuss various topics that interest
-    me. Feel free to explore the posts and reach out if you have any questions
-    or just want to connect!
-  </p>
-</Layout>
+    <ul>
+      <li>
+        <strong>Website:</strong>
+        <a href="https://aryanranderiya.com" target="_blank"
+          >aryanranderiya.com</a
+        >
+      </li>
+      <li>
+        <strong>Twitter:</strong>
+        <a href="https://twitter.com/aryanranderiya" target="_blank"
+          >@aryanranderiya</a
+        >
+      </li>
+      <li>
+        <strong>GitHub:</strong>
+        <a href="https://github.com/aryanranderiya/blog" target="_blank"
+          >github.com/aryanranderiya/blog</a
+        >
+      </li>
+    </ul>
+
+    <p>
+      This blog is built with Astro and serves as a place where I document my
+      learning journey, share tutorials, and discuss various topics that
+      interest me. Feel free to explore the posts and reach out if you have any
+      questions or just want to connect!
+    </p>
+  </div>
+</MainLayout>
