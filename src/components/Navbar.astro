@@ -3,6 +3,8 @@ import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
 import DarkModeToggle from "./DarkModeToggle.astro";
+
+const isDevelopment = import.meta.env.DEV;
 ---
 
 <header
@@ -22,6 +24,16 @@ import DarkModeToggle from "./DarkModeToggle.astro";
           class="text-muted-foreground hover:text-foreground transition-colors font-medium"
           >Posts</HeaderLink
         >
+        {
+          isDevelopment && (
+            <HeaderLink
+              href="/create"
+              class="text-muted-foreground hover:text-foreground transition-colors font-medium"
+            >
+              Create
+            </HeaderLink>
+          )
+        }
       </div>
 
       <div class="flex items-center space-x-4">
