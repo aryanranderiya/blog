@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import WideLayout from "../layouts/WideLayout.astro";
 import { SITE_TITLE } from "../consts";
+import { Input } from "@/components/ui/input";
 
 const posts = await getCollection("blog");
 ---
@@ -10,21 +11,9 @@ const posts = await getCollection("blog");
   title={`Search - ${SITE_TITLE}`}
   description="Search blog posts by title, content, or tags"
 >
-  <div class="text-center mb-12">
-    <h1 class="text-4xl font-bold text-zinc-900 mb-4">Search Posts</h1>
-    <p class="text-xl text-zinc-600">
-      Find articles by title, content, or tags
-    </p>
-  </div>
-
   <div class="max-w-2xl mx-auto mb-8">
     <div class="relative">
-      <input
-        type="text"
-        class="w-full px-6 py-4 text-lg bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all"
-        placeholder="Search posts..."
-        id="searchInput"
-      />
+      <Input type="text" placeholder="Search posts..." id="searchInput" />
       <svg
         class="absolute right-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-zinc-400"
         fill="none"
