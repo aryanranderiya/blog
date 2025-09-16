@@ -17,7 +17,7 @@ const posts = (await getCollection("blog"))
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <div class="mb-10 space-y-6 px-3">
+  <div class="space-y-6 mb-6 px-3">
     <h1 class="text-5xl font-black text-foreground tracking-tighter">
       hi i'm aryan.
     </h1>
@@ -29,14 +29,14 @@ const posts = (await getCollection("blog"))
       > blog starter template designed with modern aesthetics and exceptional typography.
     </p>
 
-    <div class="grid items-center gap-2">
+    <div class="flex items-center gap-2">
       <Input placeholder="youremail@gmail.com" />
       <RaisedButton color="#0091ff"> Sign Up </RaisedButton>
     </div>
   </div>
 
   <div class="space-y-6 p-3 pt-0">
-    <p class="text-xl text-muted-foreground leading-relaxed">
+    <p class="text-xl text-muted-foreground leading-relaxed font-medium">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, iste
       ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum mollitia
       deleniti alias repellat doloremque quod explicabo aliquam molestiae
@@ -69,8 +69,8 @@ const posts = (await getCollection("blog"))
   </section>
 
   <div class="mx-auto w-full flex justify-center">
-    <a href="/posts">
-      <RaisedButton> View All Posts </RaisedButton>
+    <a href="/posts" class="w-full">
+      <RaisedButton color="#0091ff" className="w-full"> View All </RaisedButton>
     </a>
   </div>
 </MainLayout>
