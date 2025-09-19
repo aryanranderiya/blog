@@ -62,7 +62,6 @@ title: "${frontmatter.title}"
 description: "${frontmatter.description}"
 pubDate: "${frontmatter.pubDate}"
 slug: "${slug}"
-readingTime: ${readingTime}
 tags: [${frontmatter.tags.map((tag: string) => `"${tag}"`).join(", ")}]${
       frontmatter.heroImage ? `\nheroImage: "${frontmatter.heroImage}"` : ""
     }${frontmatter.author ? `\nauthor: "${frontmatter.author}"` : ""}${

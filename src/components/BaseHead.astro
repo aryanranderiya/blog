@@ -60,3 +60,54 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+<meta property="twitter:site" content="@aryanranderiya" />
+<meta property="twitter:creator" content="@aryanranderiya" />
+<meta name="author" content="Aryan Randeriya" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://blog.aryanranderiya.com/#website",
+        "url": "https://blog.aryanranderiya.com/",
+        "name": "Aryan's Blog",
+        "description": "Personal thoughts on tech, startups, and life by Aryan Randeriya. Currently building GAIA, a personal AI assistant. Sharing insights on software development, design, and entrepreneurship.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://blog.aryanranderiya.com/posts?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "author": {
+          "@id": "https://blog.aryanranderiya.com/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://blog.aryanranderiya.com/#person",
+        "name": "Aryan Randeriya",
+        "url": "https://aryanranderiya.com/",
+        "sameAs": [
+          "https://twitter.com/aryanranderiya",
+          "https://github.com/aryanranderiya",
+          "https://linkedin.com/in/aryanranderiya"
+        ],
+        "jobTitle": "Software Developer & Entrepreneur",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "GAIA",
+          "url": "https://heygaia.io/"
+        },
+        "knowsAbout": [
+          "Software Development",
+          "Artificial Intelligence",
+          "Startups",
+          "Design",
+          "Technology"
+        ]
+      }
+    ]
+  }
+</script>

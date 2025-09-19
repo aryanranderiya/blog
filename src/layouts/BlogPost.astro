@@ -15,9 +15,50 @@ type Props = CollectionEntry<"blog">["data"] & {
 const { title, description, pubDate, updatedDate, heroImage, tags, content } =
   Astro.props;
 const readTime = content ? calculateReadTime(content) : 0;
+
+// Generate JSON-LD structured data for the blog post
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `https://blog.aryanranderiya.com${Astro.url.pathname}`,
+  url: `https://blog.aryanranderiya.com${Astro.url.pathname}`,
+  headline: title,
+  description: description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate || pubDate).toISOString(),
+  author: {
+    "@type": "Person",
+    "@id": "https://blog.aryanranderiya.com/#person",
+    name: "Aryan Randeriya",
+    url: "https://aryanranderiya.com/",
+  },
+  publisher: {
+    "@type": "Person",
+    "@id": "https://blog.aryanranderiya.com/#person",
+    name: "Aryan Randeriya",
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `https://blog.aryanranderiya.com${Astro.url.pathname}`,
+  },
+  keywords: tags?.join(", ") || "",
+  wordCount: content ? content.split(/\s+/).length : 0,
+  timeRequired: readTime ? `PT${readTime}M` : undefined,
+  ...(heroImage && {
+    image: {
+      "@type": "ImageObject",
+      url: `https://blog.aryanranderiya.com${heroImage.src}`,
+      width: heroImage.width,
+      height: heroImage.height,
+    },
+  }),
+};
 ---
 
 <main>
+  <!-- JSON-LD Structured Data for Blog Post -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
   <article>
     {
       heroImage && (
@@ -26,7 +67,7 @@ const readTime = content ? calculateReadTime(content) : 0;
             width={1020}
             height={510}
             src={heroImage}
-            alt=""
+            alt={`Hero image for blog post: ${title}`}
             class="w-full h-auto rounded-2xl shadow-sm"
           />
         </div>
