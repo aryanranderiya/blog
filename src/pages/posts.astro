@@ -8,6 +8,7 @@ import {
   SearchIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
+  RssIcon,
 } from "@/components/icons/icons";
 import MainLayout from "@/layouts/MainLayout.astro";
 import BlogPostCard from "@/components/BlogPostCard.astro";
@@ -45,19 +46,36 @@ const years = Object.keys(postsByYear)
 
   <section class="mb-3 max-w-2xl mx-auto" aria-label="Search and filter posts">
     <div class="mb-2">
-      <div class="relative">
-        <Input type="text" placeholder="Search posts..." id="searchInput" />
-        <SearchIcon
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-muted-foreground"
-        />
+      <div class="relative flex items-center gap-2">
+        <div class="relative flex-1">
+          <SearchIcon
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground"
+          />
+          <Input
+            type="text"
+            placeholder="Search posts..."
+            id="searchInput"
+            className="pl-10 outline-0 border-0 bg-foreground/5"
+          />
+        </div>
+        <a
+          href="/rss.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex-shrink-0 p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+          aria-label="Subscribe to RSS feed"
+          title="Subscribe to RSS feed"
+        >
+          <RssIcon className="w-5 h-5" />
+        </a>
       </div>
     </div>
 
     <!-- Tag Filters -->
     <div class="w-full overflow-x-auto">
-      <div class="flex space-x-2 py-4 min-w-max">
+      <div class="flex space-x-2 pb-4 min-w-max">
         <button
-          class="tag-filter active inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex-shrink-0 cursor-pointer"
+          class="tag-filter active inline-flex items-center px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex-shrink-0 cursor-pointer"
           data-tag=""
         >
           All Posts
@@ -69,7 +87,7 @@ const years = Object.keys(postsByYear)
             .sort()
             .map((tag) => (
               <button
-                class="tag-filter inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer text-nowrap capitalize flex-shrink-0"
+                class="tag-filter inline-flex items-center px-4 py-2 rounded-md text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer text-nowrap capitalize flex-shrink-0"
                 data-tag={tag}
               >
                 {tag}
@@ -145,6 +163,20 @@ const years = Object.keys(postsByYear)
     </div>
   </aside>
 
+  <style>
+    /* Ensure active tag filter hover states work correctly */
+    .tag-filter.active:hover {
+      background-color: hsl(var(--primary) / 0.9);
+      color: hsl(var(--primary-foreground));
+    }
+
+    /* Ensure inactive tag filter hover states work correctly */
+    .tag-filter:not(.active):hover {
+      background-color: hsl(var(--muted) / 0.8);
+      color: hsl(var(--foreground));
+    }
+  </style>
+
   <script>
     const searchInput = document.getElementById(
       "searchInput"
@@ -197,13 +229,31 @@ const years = Object.keys(postsByYear)
       currentTag = tagParam;
       tagFilters.forEach((filter) => {
         filter.classList.remove("active");
-        filter.classList.remove("bg-primary", "text-primary-foreground");
-        filter.classList.add("bg-muted", "text-muted-foreground");
+        filter.classList.remove(
+          "bg-primary",
+          "text-primary-foreground",
+          "hover:bg-primary/90"
+        );
+        filter.classList.add(
+          "bg-muted",
+          "text-muted-foreground",
+          "hover:bg-muted/80",
+          "hover:text-foreground"
+        );
 
         if (filter.getAttribute("data-tag") === tagParam) {
           filter.classList.add("active");
-          filter.classList.remove("bg-muted", "text-muted-foreground");
-          filter.classList.add("bg-primary", "text-primary-foreground");
+          filter.classList.remove(
+            "bg-muted",
+            "text-muted-foreground",
+            "hover:bg-muted/80",
+            "hover:text-foreground"
+          );
+          filter.classList.add(
+            "bg-primary",
+            "text-primary-foreground",
+            "hover:bg-primary/90"
+          );
         }
       });
     }
@@ -267,12 +317,26 @@ const years = Object.keys(postsByYear)
         tagFilters.forEach((f) => {
           f.classList.remove("active");
           f.classList.remove("bg-primary", "text-primary-foreground");
-          f.classList.add("bg-muted", "text-muted-foreground");
+          f.classList.add(
+            "bg-muted",
+            "text-muted-foreground",
+            "hover:bg-muted/80",
+            "hover:text-foreground"
+          );
         });
 
         filter.classList.add("active");
-        filter.classList.remove("bg-muted", "text-muted-foreground");
-        filter.classList.add("bg-primary", "text-primary-foreground");
+        filter.classList.remove(
+          "bg-muted",
+          "text-muted-foreground",
+          "hover:bg-muted/80",
+          "hover:text-foreground"
+        );
+        filter.classList.add(
+          "bg-primary",
+          "text-primary-foreground",
+          "hover:bg-primary/90"
+        );
 
         currentTag = filter.getAttribute("data-tag") || "";
         filterPosts();
