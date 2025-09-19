@@ -1,62 +1,45 @@
-# Astro Starter Kit: Blog
+# Aryan Randeriya's Blog
 
-```sh
-pnpm create astro@latest -- --template blog
-```
+![Astro](https://img.shields.io/badge/Astro-BC52EE?&logo=astro&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?&logo=tailwind-css&logoColor=white) ![PNPM](https://img.shields.io/badge/pnpm-F69220?&logo=pnpm&logoColor=white)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+A modern, feature-rich blog built with Astro, React, and TailwindCSS.
 
-Features:
+**Check out the blog here -> [blog.aryanranderiya.com](https://blog.aryanranderiya.com)**
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+---
 
-## 🚀 Project Structure
+## Features
 
-Inside of your Astro project, you'll see the following folders and files:
+- **100/100 Lighthouse performance** score with optimized builds
+- **Advanced WYSIWYG editor** powered by Yoopta Editor
+- **SEO optimized** with canonical URLs, OpenGraph data, and JSON-LD structured data
+- **Full TypeScript support** with strict type checking
+- **Live editor** for creating posts in browser (development only)
+- **Draft system** for saving posts before publishing
+- **Export options** for Markdown, HTML, or plain text
+- **Dark & light themes**
+- **Giscus post comments** powered by GitHub Discussions
+- **Automated deployment** to GitHub Pages via GitHub Actions
+- **Markdown and MDX support** with type-safe frontmatter
+- **Social sharing buttons** for Twitter, Facebook, LinkedIn, Reddit, WhatsApp, and email
+- **Mobile-first responsive design**
+- **Automated releases** with conventional commits using release-please
+- **Schema validation** for blog post frontmatter
+- **Automatic reading time calculation** for all posts
+- **RSS feed** automatically generated
+- **XML sitemap** auto-generated
+- **Automatic slug generation** from titles
+- **Sticky header** with smooth scroll progress indicator
 
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+## Commands
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+| Command        | Action                                       |
+| -------------- | -------------------------------------------- |
+| `pnpm install` | Install dependencies                         |
+| `pnpm dev`     | Start development server at `localhost:4321` |
+| `pnpm build`   | Build production site to `./dist/`           |
+| `pnpm preview` | Preview build locally                        |
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## License
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+This project is available under the MIT license.
