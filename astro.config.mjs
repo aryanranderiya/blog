@@ -3,6 +3,7 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
+import { remarkReadingTime } from "./src/lib/remark-reading-time.mjs";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -15,9 +16,18 @@ export default defineConfig({
     defaultStrategy: "viewport",
     prefetchAll: false,
   },
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
+  },
   integrations: [mdx(), sitemap(), react()],
 
+  build: {
+    inlineStylesheets: "auto", // Inline small CSS files
+  },
   vite: {
+    build: {
+      cssCodeSplit: true, // Enable CSS code splitting
+    },
     plugins: [tailwindcss()],
   },
 });

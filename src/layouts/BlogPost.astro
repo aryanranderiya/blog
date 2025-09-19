@@ -1,23 +1,32 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import GiscusComments from "../components/GiscusComments.astro";
-import Navbar from "../components/Navbar.astro";
-import { calculateReadTime } from "../lib/utils";
-import "../styles/global.css";
+// CSS is now handled by BaseHead component
 
 type Props = CollectionEntry<"blog">["data"] & {
   content?: string;
+  readingTime?: string;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, tags, content } =
-  Astro.props;
-const readTime = content ? calculateReadTime(content) : 0;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  tags,
+  content,
+  readingTime,
+} = Astro.props;
 
 // Generate JSON-LD structured data for the blog post
+// Extract minutes from readingTime (e.g., "3 min read" -> 3)
+const readTimeMinutes = readingTime
+  ? parseInt((readingTime as string).match(/\d+/)?.[0] || "0")
+  : 0;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -44,7 +53,7 @@ const jsonLd = {
   },
   keywords: tags?.join(", ") || "",
   wordCount: content ? content.split(/\s+/).length : 0,
-  timeRequired: readTime ? `PT${readTime}M` : undefined,
+  timeRequired: readTimeMinutes ? `PT${readTimeMinutes}M` : undefined,
   ...(heroImage && {
     image: {
       "@type": "ImageObject",
@@ -82,7 +91,7 @@ const jsonLd = {
         >
           <FormattedDate date={pubDate} />
           {
-            readTime > 0 && (
+            readingTime && (
               <span class="flex items-center gap-1">
                 <svg
                   class="w-4 h-4"
@@ -97,7 +106,7 @@ const jsonLd = {
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                {readTime} min read
+                {readingTime}
               </span>
             )
           }

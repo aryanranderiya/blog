@@ -9,10 +9,10 @@ export interface Props {
       description: string;
       pubDate: Date;
       tags?: string[];
-      readingTime?: number;
       author?: string;
       slug?: string;
     };
+    readingTime?: string;
   };
   variant?: "default" | "compact";
   class?: string;
@@ -31,7 +31,9 @@ const href = `/${post.id}/`;
 
 <article
   class={`group last:border-b-0 post-item ${
-    variant === "compact" ? "py-4 px-4 hover:bg-zinc-600/10" : "pb-6"
+    variant === "compact"
+      ? "py-4 px-4 hover:bg-zinc-600/10 min-h-[84px]"
+      : "pb-6"
   } ${className || ""}`}
   data-post={dataPost}
   {...props}
@@ -65,9 +67,7 @@ const href = `/${post.id}/`;
         variant === "default" && (
           <div class="flex items-center gap-4 text-sm text-muted-foreground">
             <FormattedDate date={post.data.pubDate} />
-            {post.data.readingTime && (
-              <span>{post.data.readingTime} min read</span>
-            )}
+            {post.readingTime && <span>{post.readingTime}</span>}
             {post.data.author && <span>by {post.data.author}</span>}
           </div>
         )

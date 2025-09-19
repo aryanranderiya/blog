@@ -1,10 +1,10 @@
 ---
 import WideLayout from "@/layouts/WideLayout.astro";
-import EditorWrapper from "../components/EditorWrapper.tsx";
+import EditorWrapper from "@/components/EditorWrapper.tsx";
 ---
 
 <WideLayout title="Create Blog Post">
-  <EditorWrapper client:load />
+  <EditorWrapper client:idle />
 
   <!-- <style>
     /* Yoopta Editor styles */

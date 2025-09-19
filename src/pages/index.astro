@@ -1,19 +1,29 @@
 ---
+import BlogPostCard from "@/components/BlogPostCard.astro";
 import { Input } from "@/components/ui/input.tsx";
 import { RaisedButton } from "@/components/ui/raised-button";
-import { getCollection } from "astro:content";
-import FormattedDate from "../components/FormattedDate.astro";
+import { getCollection, render } from "astro:content";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import MainLayout from "../layouts/MainLayout.astro";
-import BlogPostCard from "@/components/BlogPostCard.astro";
 
-const posts = (await getCollection("blog"))
-  .filter((post) => !post.data.draft)
-  .sort(
-    (a, b) =>
-      new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
-  )
-  .slice(0, 5);
+// This runs at build time, not runtime
+const allPosts = await getCollection("blog");
+const posts = await Promise.all(
+  allPosts
+    .filter((post) => !post.data.draft)
+    .sort(
+      (a, b) =>
+        new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+    )
+    .slice(0, 5)
+    .map(async (post) => {
+      const { remarkPluginFrontmatter } = await render(post);
+      return {
+        ...post,
+        readingTime: remarkPluginFrontmatter.minutesRead,
+      };
+    })
+);
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -64,7 +74,7 @@ const posts = (await getCollection("blog"))
       here are my most recent posts:
     </div>
 
-    <section class="my-5" aria-label="Recent blog posts">
+    <section class="my-5 min-h-[100px]" aria-label="Recent blog posts">
       <div class="flex border-separate flex-col divide-zinc-700 divide">
         {posts.map((post) => <BlogPostCard post={post} variant="compact" />)}
       </div>

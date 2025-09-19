@@ -1,20 +1,23 @@
 ---
+import BlogPostCard from "@/components/BlogPostCard.astro";
+import { ChevronDownIcon, RssIcon, SearchIcon } from "@/components/icons/icons";
 import { Input } from "@/components/ui/input";
-import { getCollection } from "astro:content";
-import FormattedDate from "@/components/FormattedDate.astro";
 import { SITE_TITLE } from "@/consts";
 import WideLayout from "@/layouts/WideLayout.astro";
-import {
-  SearchIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  RssIcon,
-} from "@/components/icons/icons";
-import MainLayout from "@/layouts/MainLayout.astro";
-import BlogPostCard from "@/components/BlogPostCard.astro";
+import { getCollection, render } from "astro:content";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+// This runs at build time, not runtime
+const allPosts = await getCollection("blog");
+const posts = await Promise.all(
+  allPosts
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .map(async (post) => {
+      const { remarkPluginFrontmatter } = await render(post);
+      return {
+        ...post,
+        readingTime: remarkPluginFrontmatter.minutesRead,
+      };
+    })
 );
 
 // Group posts by year
@@ -34,6 +37,12 @@ const postsByYear = posts.reduce(
 const years = Object.keys(postsByYear)
   .map(Number)
   .sort((a, b) => b - a);
+
+// Pre-compute unique tags at build time
+const allTags = posts
+  .flatMap((post) => post.data.tags || [])
+  .filter((tag, index, arr) => arr.indexOf(tag) === index)
+  .sort();
 ---
 
 <WideLayout
@@ -81,18 +90,14 @@ const years = Object.keys(postsByYear)
           All Posts
         </button>
         {
-          posts
-            .flatMap((post) => post.data.tags || [])
-            .filter((tag, index, arr) => arr.indexOf(tag) === index)
-            .sort()
-            .map((tag) => (
-              <button
-                class="tag-filter inline-flex items-center px-4 py-2 rounded-md text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer text-nowrap capitalize flex-shrink-0"
-                data-tag={tag}
-              >
-                {tag}
-              </button>
-            ))
+          allTags.map((tag) => (
+            <button
+              class="tag-filter inline-flex items-center px-4 py-2 rounded-md text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer text-nowrap capitalize flex-shrink-0"
+              data-tag={tag}
+            >
+              {tag}
+            </button>
+          ))
         }
       </div>
     </div>
