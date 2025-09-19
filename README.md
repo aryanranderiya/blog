@@ -6,6 +6,12 @@ A modern, feature-rich blog built with Astro, React, and TailwindCSS.
 
 **Check out the blog here -> [blog.aryanranderiya.com](https://blog.aryanranderiya.com)**
 
+[![](/public/screenshot.webp)](https://blog.aryanranderiya.com)
+
+---
+
+[![](/public/pagespeed.webp)](https://pagespeed.web.dev/analysis/https-blog-aryanranderiya-com/5nq43gqy73)
+
 ---
 
 ## Features
