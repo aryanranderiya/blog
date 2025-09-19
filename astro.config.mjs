@@ -13,7 +13,7 @@ export default defineConfig({
   site: "https://blog.aryanranderiya.com",
   prefetch: {
     defaultStrategy: "viewport",
-    prefetchAll: false
+    prefetchAll: false,
   },
   integrations: [mdx(), sitemap(), react()],
 

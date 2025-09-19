@@ -4,13 +4,19 @@ import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
 const today = new Date();
 ---
 
-<footer class="bg-muted/30 dark:bg-zinc-900 border-t border-border mt-20">
+<footer
+  class="bg-muted/30 dark:bg-zinc-900 border-t border-border mt-20"
+  role="contentinfo"
+>
   <div class="max-w-6xl mx-auto px-6 py-12">
     <div class="text-center">
       <p class="text-muted-foreground mb-6">
         &copy; {today.getFullYear()} Aryan Randeriya. All rights reserved.
       </p>
-      <div class="flex justify-center items-center space-x-6">
+      <nav
+        class="flex justify-center items-center space-x-6"
+        aria-label="Social media links"
+      >
         <a
           href="https://aryanranderiya.com"
           target="_blank"
@@ -35,7 +41,7 @@ const today = new Date();
           <span class="sr-only">Go to blog's GitHub repo</span>
           <GitHubIcon size={24} className="w-6 h-6" />
         </a>
-      </div>
+      </nav>
     </div>
   </div>
 </footer>

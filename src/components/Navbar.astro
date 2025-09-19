@@ -9,17 +9,21 @@ const isDevelopment = import.meta.env.DEV;
 
 <header
   class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
+  role="banner"
 >
-  <nav class="max-w-3xl mx-auto px-6 py-4">
+  <nav
+    class="max-w-3xl mx-auto px-6 py-4"
+    role="navigation"
+    aria-label="Main navigation"
+  >
     <div class="flex items-center justify-between">
-      <h2 class="text-xl font-bold text-foreground">
+      <div class="text-xl font-bold text-foreground">
         <a
           href="/"
           class="hover:text-muted-foreground transition-colors"
-          data-astro-prefetch="hover"
-          >{SITE_TITLE}</a
+          data-astro-prefetch="hover">{SITE_TITLE}</a
         >
-      </h2>
+      </div>
 
       <div class="hidden md:flex items-center space-x-8">
         <HeaderLink href="/posts" class="font-medium">Posts</HeaderLink>

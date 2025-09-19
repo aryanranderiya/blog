@@ -39,7 +39,11 @@ const years = Object.keys(postsByYear)
   title={`Blog Posts - ${SITE_TITLE}`}
   description="Browse and search all blog posts"
 >
-  <div class="mb-3 max-w-2xl mx-auto">
+  <header class="mb-6 max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold text-foreground mb-4">All Blog Posts</h1>
+  </header>
+
+  <section class="mb-3 max-w-2xl mx-auto" aria-label="Search and filter posts">
     <div class="mb-2">
       <div class="relative">
         <Input type="text" placeholder="Search posts..." id="searchInput" />
@@ -74,16 +78,22 @@ const years = Object.keys(postsByYear)
         }
       </div>
     </div>
-  </div>
+  </section>
 
-  <section>
-    <div class="space-y-6 max-w-2xl mx-auto" id="results">
+  <main>
+    <section
+      class="space-y-6 max-w-2xl mx-auto"
+      id="results"
+      aria-label="Blog posts by year"
+    >
       {
         years.map((year) => (
-          <div class="year-section">
+          <article class="year-section">
             <button
               class="year-toggle flex items-center gap-4 mb-6 w-full text-left hover:opacity-80 transition-opacity cursor-pointer"
               data-year={year}
+              aria-expanded="true"
+              aria-controls={`posts-${year}`}
             >
               <h2 class="text-sm text-muted-foreground">{year}</h2>
               <div class="h-px bg-border flex-1" />
@@ -93,7 +103,11 @@ const years = Object.keys(postsByYear)
               />
             </button>
 
-            <div class="year-posts" data-year-content={year}>
+            <div
+              class="year-posts"
+              data-year-content={year}
+              id={`posts-${year}`}
+            >
               {postsByYear[year].map((post) => (
                 <BlogPostCard
                   post={post}
@@ -110,26 +124,26 @@ const years = Object.keys(postsByYear)
                 />
               ))}
             </div>
-          </div>
+          </article>
         ))
       }
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- No Results Message -->
-  <div class="text-center py-16 hidden" id="noResults">
+  <aside class="text-center py-16 hidden" id="noResults" aria-live="polite">
     <div class="flex justify-center items-center flex-col">
       <div class="text-6xl mb-4 mx-auto text-muted-foreground">
         <SearchIcon width={70} height={70} />
       </div>
-      <h3 class="text-2xl font-semibold text-foreground mb-2">
+      <h2 class="text-2xl font-semibold text-foreground mb-2">
         No posts found
-      </h3>
+      </h2>
       <p class="text-muted-foreground">
         Try adjusting your search criteria or browse all posts.
       </p>
     </div>
-  </div>
+  </aside>
 
   <script>
     const searchInput = document.getElementById(
