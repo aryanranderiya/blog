@@ -2,7 +2,7 @@
 title: "Monopoly"
 description: "The game"
 pubDate: "2025-09-19"
-slug: "astro-content-collections"
+slug: "monopoly"
 tags: ["Shower Thoughts"]
 # heroImage: "../../assets/blog-placeholder-3.jpg"
 author: "Aryan Randeriya"

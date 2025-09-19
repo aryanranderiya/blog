@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import GiscusComments from "../components/GiscusComments.astro";
+import ShareButtons from "../components/ShareButtons.tsx";
 // CSS is now handled by BaseHead component
 
 type Props = CollectionEntry<"blog">["data"] & {
@@ -155,9 +156,16 @@ const jsonLd = {
         <slot />
       </div>
 
-      <!-- Comments Section -->
+      <!-- Share Buttons -->
       <div class="mt-16 pt-8 border-t border-border">
-        <GiscusComments class="mt-8" />
+        <ShareButtons
+          url={`https://blog.aryanranderiya.com${Astro.url.pathname}`}
+          title={"Check out this blog post by Aryan Randeriya:"}
+          description={description}
+          client:load
+        />
+
+        <GiscusComments class="mt-10" />
       </div>
     </div>
   </article>
