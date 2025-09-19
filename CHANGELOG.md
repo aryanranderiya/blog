@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/aryanranderiya/blog/compare/v1.0.0...v1.1.0) (2025-09-19)
+
+
+### Features
+
+* add Google Analytics integration and update Navbar spacing ([05d956c](https://github.com/aryanranderiya/blog/commit/05d956c700c73d3a8d374088b772b6ea0edf8e72))
+* update README.md with enhanced features and remove CNAME file ([5f2f2a9](https://github.com/aryanranderiya/blog/commit/5f2f2a94f43c5766b9ddcf38d3d857ec5747a375))
+
 ## 1.0.0 (2025-09-19)
 
 
