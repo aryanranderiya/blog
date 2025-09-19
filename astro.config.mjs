@@ -11,6 +11,10 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   site: "https://blog.aryanranderiya.com",
+  prefetch: {
+    defaultStrategy: "viewport",
+    prefetchAll: false
+  },
   integrations: [mdx(), sitemap(), react()],
 
   vite: {

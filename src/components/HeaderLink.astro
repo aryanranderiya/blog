@@ -18,6 +18,7 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
       : "text-muted-foreground hover:text-foreground",
     "transition-colors duration-200",
   ]}
+  data-astro-prefetch="hover"
   {...props}
 >
   <slot />
