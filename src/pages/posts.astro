@@ -40,7 +40,7 @@ const years = Object.keys(postsByYear)
   description="Browse and search all blog posts"
 >
   <header class="mb-6 max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold text-foreground mb-4">All Blog Posts</h1>
+    <h1 class="sr-only">All Blog Posts</h1>
   </header>
 
   <section class="mb-3 max-w-2xl mx-auto" aria-label="Search and filter posts">
@@ -55,7 +55,7 @@ const years = Object.keys(postsByYear)
 
     <!-- Tag Filters -->
     <div class="w-full overflow-x-auto">
-      <div class="flex space-x-2 p-4 min-w-max">
+      <div class="flex space-x-2 py-4 min-w-max">
         <button
           class="tag-filter active inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex-shrink-0 cursor-pointer"
           data-tag=""

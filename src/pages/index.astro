@@ -17,75 +17,61 @@ const posts = (await getCollection("blog"))
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <div class="space-y-6 mb-6 px-3">
-    <h1 class="text-5xl font-black text-foreground tracking-tighter">
-      hi i'm aryan.
-    </h1>
-    <p class="text-xl text-muted-foreground leading-relaxed lowercase">
-      I'm a software developer and designer who just really loves to build
-      things. I'm currently working on my own startup (a personal ai assistant,
-      think of jarvis!) called <a
-        href="https://heygaia.io/"
-        class="text-[#00bbff] hover:text-primary transition-colors">GAIA</a
-      >.
-      <br />
-      <br />
+  <div class="text-foreground/60 text-xl">
+    <div class="space-y-6 mb-6 px-3">
+      <h1 class="text-5xl font-black text-foreground tracking-tighter">
+        hi i'm aryan.
+      </h1>
+      <p class="lowercase">
+        I'm a software developer and designer who just really loves to build
+        things. I'm currently working on my own startup (a pretty cool personal
+        assistant) called <a href="https://heygaia.io/" class="anchor">GAIA</a>.
+        <br />
+        <br />
 
-      Here is where i post random thoughts about tech, my life and everything in
-      between. You can know more about me on my <a
-        href="https://twitter.com/aryanranderiya"
-        class="text-[#00bbff] hover:text-primary transition-colors">twitter</a
-      > and <a
-        href="https://aryanranderiya.com/"
-        class="text-[#00bbff] hover:text-primary transition-colors">website</a
-      >.
+        Here is where i post random thoughts about tech, my life and everything
+        in between. You can know more about me on my <a
+          href="https://twitter.com/aryanranderiya"
+          class="anchor">twitter</a
+        > and <a href="https://aryanranderiya.com/" class="anchor">website</a>.
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      You can signup to my newsletter to stay updated with my latest posts:
-    </p>
+        You can signup to my newsletter to stay updated with my latest posts:
+      </p>
 
-    <div class="flex items-center gap-2">
-      <Input placeholder="youremail@gmail.com" />
-      <RaisedButton color="#0091ff"> Sign Up </RaisedButton>
-    </div>
-  </div>
+      <div class="flex items-center gap-2">
+        <Input
+          placeholder="youremail@gmail.com"
+          className="placeholder:text-foreground/30"
+          required
+        />
 
-  <div class="space-y-6 p-3 pt-0">
-    <p class="text-xl text-muted-foreground leading-relaxed font-medium">
+        <RaisedButton color="#0091ff"> let's gooo </RaisedButton>
+      </div>
+
       p.s. if you wanna get in touch with me feel free to reach out at
 
-      <a
-        href="mailto:arya"
-        class="text-white hover:text-white/80 transition-colors"
-        >aryan@heygaia.io</a
-      >. i try to respond to every email i get! (unless it's spam)
-    </p>
-  </div>
-
-  <section class="my-5 mt-10" aria-label="Recent blog posts">
-    <h2 class="text-2xl font-bold text-foreground mb-6 px-3">Recent Posts</h2>
-    <div class="flex border-separate flex-col divide-zinc-700 divide">
-      {posts.map((post) => <BlogPostCard post={post} variant="compact" />)}
-
-      {
-        posts.length === 0 && (
-          <p class="text-muted-foreground text-center py-8">
-            No posts yet.{" "}
-            <a href="/create" class="text-primary hover:underline">
-              Create your first post
-            </a>
-            .
-          </p>
-        )
-      }
+      <a href="mailto:aryan@heygaia.io" class="anchor">aryan@heygaia.io</a>.
+      <br />
+      <br />
+      i try to respond to every email i get! (unless it's spam)
+      <br />
+      <br />
+      here are my most recent posts:
     </div>
-  </section>
 
-  <div class="mx-auto w-full flex justify-center">
-    <a href="/posts" class="w-full" data-astro-prefetch="hover">
-      <RaisedButton color="#0091ff" className="w-full"> View All </RaisedButton>
-    </a>
+    <section class="my-5" aria-label="Recent blog posts">
+      <div class="flex border-separate flex-col divide-zinc-700 divide">
+        {posts.map((post) => <BlogPostCard post={post} variant="compact" />)}
+      </div>
+    </section>
+
+    <div class="mx-auto w-full flex justify-center">
+      <a href="/posts" class="w-full" data-astro-prefetch="hover">
+        <RaisedButton color="#000" className="w-full"> View All </RaisedButton>
+      </a>
+    </div>
   </div>
 </MainLayout>

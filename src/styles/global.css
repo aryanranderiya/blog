@@ -6,11 +6,16 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    letter-spacing: -0.7px;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     min-height: 100vh;
+  }
+
+  .anchor {
+    @apply text-[#0091ff] underline underline-offset-3 decoration-1 transition-colors;
   }
 
   .sr-only {
@@ -42,10 +47,6 @@
 
   .prose p {
     @apply text-muted-foreground leading-relaxed mb-4;
-  }
-
-  .prose a {
-    @apply text-foreground underline underline-offset-2 decoration-muted hover:decoration-foreground transition-colors;
   }
 
   .prose ul {
