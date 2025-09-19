@@ -5,7 +5,7 @@ import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/blog-placeholder-1.jpg";
 import { SITE_TITLE } from "../consts";
 import "../styles/global.css";
-import { Font } from "astro:assets";
+import "@fontsource/inter";
 
 interface Props {
   title: string;
@@ -19,7 +19,6 @@ const { title, description, image = FallbackImage } = Astro.props;
 ---
 
 <!-- Global Metadata -->
-<Font cssVariable="--font-inter" preload />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -31,13 +30,6 @@ const { title, description, image = FallbackImage } = Astro.props;
   href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-
-<style>
-  body {
-    font-family: var(--font-inter);
-    letter-spacing: -0.7px;
-  }
-</style>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
