@@ -70,6 +70,14 @@ const jsonLd = {
   <!-- JSON-LD Structured Data for Blog Post -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
+  <!-- Scroll Progress Bar -->
+  <div
+    id="scroll-progress-bar"
+    style="position:fixed;top:0;left:0;width:0;height:4px;z-index:50;background:#0091ff;transition:width 0.1s;"
+    aria-hidden="true"
+  >
+  </div>
+
   <article>
     {
       heroImage && (
@@ -169,4 +177,22 @@ const jsonLd = {
       </div>
     </div>
   </article>
+
+  <script>
+    // Progress bar scroll handler
+    function updateScrollProgressBar() {
+      const bar = document.getElementById("scroll-progress-bar");
+      if (!bar) return;
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + "%";
+    }
+    window.addEventListener("scroll", updateScrollProgressBar, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateScrollProgressBar);
+    document.addEventListener("DOMContentLoaded", updateScrollProgressBar);
+  </script>
 </main>
