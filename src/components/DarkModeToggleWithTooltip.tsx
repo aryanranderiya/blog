@@ -1,0 +1,67 @@
+import { MoonIcon, SunIcon } from "./icons/icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useEffect } from "react";
+
+export default function DarkModeToggleWithTooltip() {
+  useEffect(() => {
+    function initTheme() {
+      const theme = localStorage.getItem("theme") || "light";
+      document.documentElement.classList.toggle("dark", theme === "dark");
+      document.documentElement.style.setProperty("--theme", theme);
+    }
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains("dark");
+      const newTheme = isDark ? "light" : "dark";
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      document.documentElement.style.setProperty("--theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      updateGiscusTheme(newTheme);
+    }
+    function updateGiscusTheme(theme: string) {
+      const giscusFrame = document.querySelector(
+        "iframe.giscus-frame"
+      ) as HTMLIFrameElement | null;
+      if (giscusFrame && giscusFrame.contentWindow) {
+        giscusFrame.contentWindow.postMessage(
+          {
+            giscus: {
+              setConfig: {
+                theme: theme,
+              },
+            },
+          },
+          "https://giscus.app"
+        );
+      }
+    }
+    initTheme();
+    const btn = document.getElementById("theme-toggle");
+    if (btn) btn.addEventListener("click", toggleTheme);
+    return () => {
+      if (btn) btn.removeEventListener("click", toggleTheme);
+    };
+  }, []);
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          id="theme-toggle"
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9 cursor-pointer"
+          type="button"
+          aria-label="Toggle dark/light theme"
+        >
+          <SunIcon className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <MoonIcon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Toggle theme</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}

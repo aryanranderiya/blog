@@ -1,5 +1,5 @@
 ---
-import SocialLinks from "./SocialLinks.astro";
+import SocialLinksWithTooltip from "./SocialLinksWithTooltip.tsx";
 
 const today = new Date();
 ---
@@ -10,7 +10,11 @@ const today = new Date();
       <p class="text-muted-foreground mb-6">
         &copy; {today.getFullYear()} Aryan Randeriya. All rights reserved.
       </p>
-      <SocialLinks variant="footer" class="justify-center" />
+      <SocialLinksWithTooltip
+        variant="footer"
+        className="justify-center"
+        client:load
+      />
     </div>
   </div>
 </footer>

@@ -1,8 +1,8 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
-import DarkModeToggle from "./DarkModeToggle.astro";
-import SocialLinks from "./SocialLinks.astro";
+import DarkModeToggleWithTooltip from "./DarkModeToggleWithTooltip.tsx";
+import SocialLinksWithTooltip from "./SocialLinksWithTooltip.tsx";
 
 const isDevelopment = import.meta.env.DEV;
 ---
@@ -33,8 +33,8 @@ const isDevelopment = import.meta.env.DEV;
       </div>
 
       <div class="flex items-center space-x-4">
-        <DarkModeToggle />
-        <SocialLinks variant="navbar" />
+        <DarkModeToggleWithTooltip client:load />
+        <SocialLinksWithTooltip variant="navbar" client:load />
       </div>
     </div>
   </nav>
