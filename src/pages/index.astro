@@ -21,12 +21,29 @@ const posts = (await getCollection("blog"))
     <h1 class="text-5xl font-black text-foreground tracking-tighter">
       hi i'm aryan.
     </h1>
-    <p class="text-xl text-muted-foreground leading-relaxed">
-      A clean, minimalistic <a
-        href="https://astro.build/"
-        class="text-foreground underline underline-offset-2 hover:text-primary transition-colors"
-        >Astro</a
-      > blog starter template designed with modern aesthetics and exceptional typography.
+    <p class="text-xl text-muted-foreground leading-relaxed lowercase">
+      I'm a software developer and designer who just really loves to build
+      things. I'm currently working on my own startup (a personal ai assistant,
+      think of jarvis!) called <a
+        href="https://heygaia.io/"
+        class="text-[#00bbff] hover:text-primary transition-colors">GAIA</a
+      >.
+      <br />
+      <br />
+
+      Here is where i post random thoughts about tech, my life and everything in
+      between. You can know more about me on my <a
+        href="https://twitter.com/aryanranderiya"
+        class="text-[#00bbff] hover:text-primary transition-colors">twitter</a
+      > and <a
+        href="https://aryanranderiya.com/"
+        class="text-[#00bbff] hover:text-primary transition-colors">website</a
+      >.
+
+      <br />
+      <br />
+
+      You can signup to my newsletter to stay updated with my latest posts:
     </p>
 
     <div class="flex items-center gap-2">
@@ -37,20 +54,17 @@ const posts = (await getCollection("blog"))
 
   <div class="space-y-6 p-3 pt-0">
     <p class="text-xl text-muted-foreground leading-relaxed font-medium">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, iste
-      ut. Sequi dolor, delectus aliquid ex voluptatem et quia nostrum mollitia
-      deleniti alias repellat doloremque quod explicabo aliquam molestiae
-      repudiandae, deserunt aut libero in aspernatur iure. Quae fugit at in
-      ducimus id laborum quod a labore incidunt repellendus. Soluta aut quidem
-      hic sunt vel eaque corporis, quasi quos, voluptatem excepturi impedit
-      ratione non itaque dolores eum! Numquam temporibus unde atque asperiores
-      aut velit neque, accusamus quia, quibusdam eius dolor ducimus. Nemo error
-      fugit, explicabo aspernatur autem odit porro dolorem est nam neque quam
-      placeat reprehenderit, et harum esse voluptatem iure!
+      p.s. if you wanna get in touch with me feel free to reach out at
+
+      <a
+        href="mailto:arya"
+        class="text-white hover:text-white/80 transition-colors"
+        >aryan@heygaia.io</a
+      >. i try to respond to every email i get! (unless it's spam)
     </p>
   </div>
 
-  <section class="my-5">
+  <section class="my-5 mt-10">
     <div class="flex border-separate flex-col divide-zinc-700 divide">
       {posts.map((post) => <BlogPostCard post={post} variant="compact" />)}
 
