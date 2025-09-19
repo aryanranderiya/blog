@@ -2,9 +2,6 @@ import type { APIRoute } from "astro";
 import fs from "fs";
 import path from "path";
 
-// Disable prerendering for this API endpoint
-export const prerender = false;
-
 // Only allow in development
 const isDevelopment = import.meta.env.DEV;
 
