@@ -1,0 +1,98 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div id="giscus-container" class={className}>
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="aryanranderiya/blog"
+    data-repo-id="R_kgDOPxP9Yw"
+    data-category="General"
+    data-category-id="DIC_kwDOPxP9Y84Cvh9S"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async></script>
+</div>
+
+<script>
+  function updateGiscusTheme(): void {
+    const isDark = document.documentElement.classList.contains("dark");
+    const theme = isDark ? "dark" : "light";
+
+    const giscusFrame = document.querySelector(
+      "iframe.giscus-frame"
+    ) as HTMLIFrameElement;
+    if (giscusFrame && giscusFrame.contentWindow) {
+      giscusFrame.contentWindow.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme: theme,
+            },
+          },
+        },
+        "https://giscus.app"
+      );
+    }
+  }
+
+  function initGiscusTheme(): void {
+    const isDark = document.documentElement.classList.contains("dark");
+    const theme = isDark ? "dark" : "light";
+
+    // Update the script tag before giscus loads
+    const giscusScript = document.querySelector(
+      'script[src="https://giscus.app/client.js"]'
+    ) as HTMLScriptElement;
+    if (giscusScript) {
+      giscusScript.setAttribute("data-theme", theme);
+    }
+  }
+
+  // Initialize theme on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    initGiscusTheme();
+
+    // Listen for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          updateGiscusTheme();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  });
+
+  // Handle theme changes on navigation
+  document.addEventListener("astro:page-load", () => {
+    initGiscusTheme();
+    setTimeout(updateGiscusTheme, 500); // Give giscus time to load
+  });
+
+  // Also listen for manual theme toggle
+  document.addEventListener("astro:after-swap", () => {
+    setTimeout(() => {
+      initGiscusTheme();
+      updateGiscusTheme();
+    }, 100);
+  });
+</script>

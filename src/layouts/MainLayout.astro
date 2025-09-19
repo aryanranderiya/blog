@@ -20,13 +20,16 @@ const { title, description = "Welcome to my blog!" } = Astro.props;
       (function () {
         const theme = localStorage.getItem("theme") || "light";
         document.documentElement.classList.toggle("dark", theme === "dark");
+
+        // Set CSS variable for theme for other components to use
+        document.documentElement.style.setProperty("--theme", theme);
       })();
     </script>
   </head>
 
   <body class="min-h-screen bg-background">
     <Navbar />
-    <main class="max-w-2xl mx-auto px-6 py-12" role="main">
+    <main class="max-w-2xl mx-auto px-6 py-8" role="main">
       <slot />
     </main>
     <Footer />

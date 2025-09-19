@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import MainLayout from "../layouts/MainLayout.astro";
-import BlogPostCard from "../components/BlogPostCard.astro";
+import BlogPostCard from "@/components/BlogPostCard.astro";
 
 const posts = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
@@ -48,7 +48,9 @@ const posts = (await getCollection("blog"))
           required
         />
 
-        <RaisedButton color="#0091ff"> let's gooo </RaisedButton>
+        <RaisedButton color="#0091ff" className="text-base px-10">
+          let's gooo
+        </RaisedButton>
       </div>
 
       p.s. if you wanna get in touch with me feel free to reach out at
@@ -70,7 +72,9 @@ const posts = (await getCollection("blog"))
 
     <div class="mx-auto w-full flex justify-center">
       <a href="/posts" class="w-full" data-astro-prefetch="hover">
-        <RaisedButton color="#000" className="w-full"> View All </RaisedButton>
+        <RaisedButton color="#242424" className="w-full text-base">
+          view all posts
+        </RaisedButton>
       </a>
     </div>
   </div>

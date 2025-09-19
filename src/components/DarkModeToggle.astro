@@ -20,6 +20,7 @@ import { MoonIcon, SunIcon } from "./icons/icons";
   function initTheme() {
     const theme = localStorage.getItem("theme") || "light";
     document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.style.setProperty("--theme", theme);
   }
 
   function toggleTheme() {
@@ -27,7 +28,29 @@ import { MoonIcon, SunIcon } from "./icons/icons";
     const newTheme = isDark ? "light" : "dark";
 
     document.documentElement.classList.toggle("dark", newTheme === "dark");
+    document.documentElement.style.setProperty("--theme", newTheme);
     localStorage.setItem("theme", newTheme);
+
+    // Notify Giscus of theme change
+    updateGiscusTheme(newTheme);
+  }
+
+  function updateGiscusTheme(theme: string) {
+    const giscusFrame = document.querySelector(
+      "iframe.giscus-frame"
+    ) as HTMLIFrameElement;
+    if (giscusFrame && giscusFrame.contentWindow) {
+      giscusFrame.contentWindow.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme: theme,
+            },
+          },
+        },
+        "https://giscus.app"
+      );
+    }
   }
 
   // Initialize theme on page load

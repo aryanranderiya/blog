@@ -8,11 +8,11 @@ const isDevelopment = import.meta.env.DEV;
 ---
 
 <header
-  class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
+  class="sticky top-0 z-50 bg-background/30 backdrop-blur-md"
   role="banner"
 >
   <nav
-    class="max-w-3xl mx-auto px-6 py-4"
+    class="max-w-2xl mx-auto px-6 py-4"
     role="navigation"
     aria-label="Main navigation"
   >
@@ -20,20 +20,16 @@ const isDevelopment = import.meta.env.DEV;
       <div class="text-xl font-bold text-foreground">
         <a
           href="/"
-          class="hover:text-muted-foreground transition-colors"
+          class="hover:text-muted-foreground transition-colors tracking-tighter"
           data-astro-prefetch="hover">{SITE_TITLE}</a
         >
       </div>
 
-      <div class="hidden md:flex items-center space-x-8">
-        <HeaderLink href="/posts" class="font-medium">Posts</HeaderLink>
-        {
-          isDevelopment && (
-            <HeaderLink href="/create" class="font-medium">
-              Create
-            </HeaderLink>
-          )
-        }
+      <div
+        class="hidden md:flex items-center space-x-8 lowercase font-semibold"
+      >
+        <HeaderLink href="/posts">Posts</HeaderLink>
+        {isDevelopment && <HeaderLink href="/create">Create</HeaderLink>}
       </div>
 
       <div class="flex items-center space-x-4">
