@@ -32,7 +32,7 @@ const isDevelopment = import.meta.env.DEV;
         {isDevelopment && <HeaderLink href="/create">Create</HeaderLink>}
       </div>
 
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center gap-4">
         <DarkModeToggleWithTooltip client:load />
         <SocialLinksWithTooltip variant="navbar" client:load />
       </div>
