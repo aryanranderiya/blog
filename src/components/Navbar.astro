@@ -1,8 +1,8 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
-import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
 import DarkModeToggle from "./DarkModeToggle.astro";
+import SocialLinks from "./SocialLinks.astro";
 
 const isDevelopment = import.meta.env.DEV;
 ---
@@ -34,30 +34,7 @@ const isDevelopment = import.meta.env.DEV;
 
       <div class="flex items-center space-x-4">
         <DarkModeToggle />
-        <a
-          href="https://aryanranderiya.com"
-          target="_blank"
-          class="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <span class="sr-only">Visit Aryan's website</span>
-          <WebIcon size={20} className="w-5 h-5" />
-        </a>
-        <a
-          href="https://twitter.com/aryanranderiya"
-          target="_blank"
-          class="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <span class="sr-only">Follow Aryan on Twitter</span>
-          <TwitterIcon size={20} className="w-5 h-5" />
-        </a>
-        <a
-          href="https://github.com/aryanranderiya/blog"
-          target="_blank"
-          class="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <span class="sr-only">Go to blog's GitHub repo</span>
-          <GitHubIcon size={20} className="w-5 h-5" />
-        </a>
+        <SocialLinks variant="navbar" />
       </div>
     </div>
   </nav>

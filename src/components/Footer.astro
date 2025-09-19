@@ -1,5 +1,5 @@
 ---
-import { WebIcon, TwitterIcon, GitHubIcon } from "./icons/icons";
+import SocialLinks from "./SocialLinks.astro";
 
 const today = new Date();
 ---
@@ -10,35 +10,7 @@ const today = new Date();
       <p class="text-muted-foreground mb-6">
         &copy; {today.getFullYear()} Aryan Randeriya. All rights reserved.
       </p>
-      <nav
-        class="flex justify-center items-center space-x-6"
-        aria-label="Social media links"
-      >
-        <a
-          href="https://aryanranderiya.com"
-          target="_blank"
-          class="text-muted-foreground hover:text-foreground transition-colors duration-200"
-        >
-          <span class="sr-only">Visit Aryan's website</span>
-          <WebIcon size={24} className="w-6 h-6" />
-        </a>
-        <a
-          href="https://twitter.com/aryanranderiya"
-          target="_blank"
-          class="text-muted-foreground hover:text-foreground transition-colors duration-200"
-        >
-          <span class="sr-only">Follow Aryan on Twitter</span>
-          <TwitterIcon size={24} className="w-6 h-6" />
-        </a>
-        <a
-          href="https://github.com/aryanranderiya/blog"
-          target="_blank"
-          class="text-muted-foreground hover:text-foreground transition-colors duration-200"
-        >
-          <span class="sr-only">Go to blog's GitHub repo</span>
-          <GitHubIcon size={24} className="w-6 h-6" />
-        </a>
-      </nav>
+      <SocialLinks variant="footer" class="justify-center" />
     </div>
   </div>
 </footer>
