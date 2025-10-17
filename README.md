@@ -4,7 +4,7 @@
 
 A modern, feature-rich blog built with Astro, React, and TailwindCSS.
 
-**Check out the blog here -> [blog.aryanranderiya.com](https://blog.aryanranderiya.com)**
+**Check out the blog website here → [blog.aryanranderiya.com](https://blog.aryanranderiya.com)**
 
 [![](/public/screenshot.webp)](https://blog.aryanranderiya.com)
 
@@ -16,7 +16,7 @@ A modern, feature-rich blog built with Astro, React, and TailwindCSS.
 
 ## Features
 
-- **100/100 Lighthouse performance** score with optimized builds
+- **Crazy Lighthouse performance** score with optimized builds
 - **Advanced WYSIWYG editor** powered by Yoopta Editor
 - **SEO optimized** with canonical URLs, OpenGraph data, and JSON-LD structured data
 - **Full TypeScript support** with strict type checking
@@ -36,6 +36,12 @@ A modern, feature-rich blog built with Astro, React, and TailwindCSS.
 - **XML sitemap** auto-generated
 - **Automatic slug generation** from titles
 - **Sticky header** with smooth scroll progress indicator
+
+## Roadmap
+Some stuff that i might want to add on in the future, or if you're interested in open source feel free to create a PR!
+
+- [ ] Ci/cd github workflow to check if a phrase is in commit message then trigger a post using apis of linkedin/twitter etc
+- [ ] 
 
 ## Commands
 
