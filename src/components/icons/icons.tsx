@@ -69,32 +69,41 @@ export const SearchIcon = ({ size = 24, className, ...props }: IconProps) => (
   </svg>
 );
 
-export const SunIcon = ({ size = 24, className, ...props }: IconProps) => (
+export const SunIcon = ({ ...props }: IconProps) => (
   <svg
-    width={size}
-    height={size}
+    width="100%"
+    height="100%"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    className={className}
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <circle cx="12" cy="12" r="5" />
-    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+    <path
+      d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 );
 
-export const MoonIcon = ({ size = 24, className, ...props }: IconProps) => (
+export const MoonIcon = ({ ...props }: IconProps) => (
   <svg
-    width={size}
-    height={size}
+    width="100%"
+    height="100%"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    className={className}
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    <path
+      d="M16.5 13C19.0768 13 21.2397 11.228 21.8366 8.83604C21.4087 8.94287 20.961 8.99958 20.5 8.99958C17.4624 8.99958 15 6.53715 15 3.49958C15 3.03881 15.0567 2.59128 15.1634 2.16357C12.7717 2.76068 11 4.92345 11 7.50003C11 8.41275 11.2223 9.27355 11.6158 10.0312M5 7V3M3 5H7M6 22C3.79086 22 2 20.2091 2 18C2 16.0221 3.43551 14.3796 5.32148 14.0573C6.12876 11.697 8.3662 10 11 10C13.2882 10 15.2772 11.2809 16.2892 13.1648C16.6744 13.0574 17.0805 13 17.5 13C19.9853 13 22 15.0147 22 17.5C22 19.9853 19.9853 22 17.5 22C13.6667 22 9.83333 22 6 22Z"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 );
 
