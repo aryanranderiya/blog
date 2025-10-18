@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::selection {
+  background-color: #0091ff; /* Changes the background of the selected text */
+  color: white; /* Changes the color of the selected text */
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
