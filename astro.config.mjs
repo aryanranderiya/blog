@@ -19,7 +19,13 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkReadingTime],
   },
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes("/create") && !page.includes("/api/"),
+    }),
+    react(),
+  ],
 
   build: {
     inlineStylesheets: "auto", // Inline small CSS files
@@ -27,7 +33,17 @@ export default defineConfig({
   vite: {
     build: {
       cssCodeSplit: true, // Enable CSS code splitting
+      minify: "esbuild", // Fast minification
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split vendor code for better caching
+            "react-vendor": ["react", "react-dom"],
+          },
+        },
+      },
     },
     plugins: [tailwindcss()],
   },
+  compressHTML: true, // Compress HTML output
 });

@@ -47,8 +47,15 @@ const allTags = posts
 
 <WideLayout
   title={`Blog Posts - ${SITE_TITLE}`}
-  description="Browse and search all blog posts"
+  description="Browse and search all blog posts about tech, startups, software development, and life by Aryan Randeriya. Discover insights on AI, web development, design, and entrepreneurship."
 >
+  <!-- Additional SEO for posts page -->
+  <meta
+    slot="head"
+    name="keywords"
+    content="blog posts, tech articles, software development blog, startup insights, Aryan Randeriya blog, programming tutorials, AI articles, web development"
+  />
+
   <header class="mb-6 max-w-2xl mx-auto">
     <h1 class="sr-only">All Blog Posts</h1>
   </header>

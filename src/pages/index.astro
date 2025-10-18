@@ -27,6 +27,14 @@ const posts = await Promise.all(
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <!-- Enhanced SEO for homepage -->
+  <meta
+    slot="head"
+    name="keywords"
+    content="Aryan Randeriya, personal blog, tech blog, software developer, GAIA AI, startup founder, web development, design, entrepreneurship, AI assistant"
+  />
+  <meta slot="head" property="og:type" content="website" />
+
   <div class="text-foreground/60 text-xl">
     <div class="space-y-6 mb-6 px-3">
       <h1 class="text-5xl font-black text-foreground tracking-tighter">

@@ -24,6 +24,7 @@ const { title, description = "Welcome to my blog!" } = Astro.props;
       crossorigin="anonymous"
     />
     <BaseHead title={title} description={description} />
+    <slot name="head" />
     <script is:inline>
       // Initialize theme before page renders to prevent flash
       (function () {

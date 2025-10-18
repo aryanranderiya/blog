@@ -1,0 +1,4 @@
+Contact: mailto:aryan@heygaia.io
+Expires: 2026-10-19T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://blog.aryanranderiya.com/.well-known/security.txt

@@ -42,25 +42,32 @@ const jsonLd = {
     "@id": "https://blog.aryanranderiya.com/#person",
     name: "Aryan Randeriya",
     url: "https://aryanranderiya.com/",
+    email: "aryan@heygaia.io",
   },
   publisher: {
     "@type": "Person",
     "@id": "https://blog.aryanranderiya.com/#person",
     name: "Aryan Randeriya",
+    url: "https://aryanranderiya.com/",
   },
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id": `https://blog.aryanranderiya.com${Astro.url.pathname}`,
   },
   keywords: tags?.join(", ") || "",
+  articleSection: tags?.[0] || "Blog",
+  articleBody: content || "",
   wordCount: content ? content.split(/\s+/).length : 0,
   timeRequired: readTimeMinutes ? `PT${readTimeMinutes}M` : undefined,
+  inLanguage: "en-US",
+  isAccessibleForFree: true,
   ...(heroImage && {
     image: {
       "@type": "ImageObject",
       url: `https://blog.aryanranderiya.com${heroImage.src}`,
       width: heroImage.width,
       height: heroImage.height,
+      caption: `Hero image for ${title}`,
     },
   }),
 };

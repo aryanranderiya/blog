@@ -3,7 +3,10 @@ import WideLayout from "@/layouts/WideLayout.astro";
 import EditorWrapper from "@/components/EditorWrapper.tsx";
 ---
 
-<WideLayout title="Create Blog Post">
+<WideLayout>
+  <!-- Prevent indexing of create page -->
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
   <EditorWrapper client:idle />
 
   <!-- <style>

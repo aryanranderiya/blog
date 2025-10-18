@@ -15,9 +15,42 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
+
+// Additional SEO metadata for blog posts
+const articleMetadata = {
+  type: "article",
+  section: post.data.tags?.[0] || "Blog",
+  publishedTime: post.data.pubDate.toISOString(),
+  modifiedTime: (post.data.updatedDate || post.data.pubDate).toISOString(),
+  tags: post.data.tags || [],
+};
 ---
 
 <MainLayout title={post.data.title} description={post.data.description}>
+  <!-- Article-specific meta tags -->
+  <meta slot="head" property="og:type" content="article" />
+  <meta
+    slot="head"
+    property="article:published_time"
+    content={articleMetadata.publishedTime}
+  />
+  <meta
+    slot="head"
+    property="article:modified_time"
+    content={articleMetadata.modifiedTime}
+  />
+  <meta slot="head" property="article:author" content="Aryan Randeriya" />
+  <meta
+    slot="head"
+    property="article:section"
+    content={articleMetadata.section}
+  />
+  {
+    articleMetadata.tags.map((tag: string) => (
+      <meta slot="head" property="article:tag" content={tag} />
+    ))
+  }
+
   <BlogPost
     {...post.data}
     content={post.body}

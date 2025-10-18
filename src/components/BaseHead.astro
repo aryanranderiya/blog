@@ -22,8 +22,11 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/manifest.json" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="author" type="text/plain" href="/humans.txt" />
 <link
   rel="alternate"
   type="application/rss+xml"
@@ -32,6 +35,28 @@ const { title, description, image = FallbackImage } = Astro.props;
 />
 <meta name="generator" content={Astro.generator} />
 
+<!-- Language -->
+<meta http-equiv="content-language" content="en" />
+<html lang="en" />
+
+<!-- Theme and Colors -->
+<meta name="theme-color" content="#0091ff" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<!-- Security Headers -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- Mobile Optimization -->
+<meta name="format-detection" content="telephone=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+<!-- DNS Prefetch & Preconnect for Performance -->
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
@@ -39,6 +64,9 @@ const { title, description, image = FallbackImage } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content="Aryan Randeriya" />
+<meta name="keywords" content="Aryan Randeriya, blog, tech blog, software development, startups, GAIA, AI assistant, web development, programming, technology, entrepreneurship, design" />
+<link rel="author" href="https://aryanranderiya.com" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -46,6 +74,9 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:image:alt" content={`Cover image for ${title}`} />
+<meta property="og:site_name" content="Aryan's Blog" />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -53,9 +84,9 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+<meta property="twitter:image:alt" content={`Cover image for ${title}`} />
 <meta property="twitter:site" content="@aryanranderiya" />
 <meta property="twitter:creator" content="@aryanranderiya" />
-<meta name="author" content="Aryan Randeriya" />
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -67,13 +98,21 @@ const { title, description, image = FallbackImage } = Astro.props;
         "@id": "https://blog.aryanranderiya.com/#website",
         "url": "https://blog.aryanranderiya.com/",
         "name": "Aryan's Blog",
+        "alternateName": "Aryan Randeriya's Blog",
         "description": "Personal thoughts on tech, startups, and life by Aryan Randeriya. Currently building GAIA, a personal AI assistant. Sharing insights on software development, design, and entrepreneurship.",
+        "inLanguage": "en-US",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://blog.aryanranderiya.com/posts?q={search_term_string}",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://blog.aryanranderiya.com/posts?q={search_term_string}"
+          },
           "query-input": "required name=search_term_string"
         },
         "author": {
+          "@id": "https://blog.aryanranderiya.com/#person"
+        },
+        "publisher": {
           "@id": "https://blog.aryanranderiya.com/#person"
         }
       },
@@ -81,24 +120,46 @@ const { title, description, image = FallbackImage } = Astro.props;
         "@type": "Person",
         "@id": "https://blog.aryanranderiya.com/#person",
         "name": "Aryan Randeriya",
+        "givenName": "Aryan",
+        "familyName": "Randeriya",
         "url": "https://aryanranderiya.com/",
+        "email": "aryan@heygaia.io",
+        "image": "https://aryanranderiya.com/images/profile.jpg",
+        "description": "Software Developer & Entrepreneur building GAIA - a personal AI assistant. Passionate about technology, startups, and design.",
         "sameAs": [
           "https://twitter.com/aryanranderiya",
           "https://github.com/aryanranderiya",
-          "https://linkedin.com/in/aryanranderiya"
+          "https://linkedin.com/in/aryanranderiya",
+          "https://blog.aryanranderiya.com"
         ],
         "jobTitle": "Software Developer & Entrepreneur",
         "worksFor": {
           "@type": "Organization",
           "name": "GAIA",
-          "url": "https://heygaia.io/"
+          "url": "https://heygaia.io/",
+          "description": "Personal AI Assistant"
         },
         "knowsAbout": [
           "Software Development",
           "Artificial Intelligence",
           "Startups",
+          "Web Development",
           "Design",
-          "Technology"
+          "Technology",
+          "Entrepreneurship",
+          "Product Development"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://blog.aryanranderiya.com/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://blog.aryanranderiya.com/"
+          }
         ]
       }
     ]

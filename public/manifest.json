@@ -1,0 +1,21 @@
+{
+  "name": "Aryan's Blog - Tech, Startups & Life",
+  "short_name": "Aryan's Blog",
+  "description": "Personal thoughts on tech, startups, and life by Aryan Randeriya. Currently building GAIA, a personal AI assistant. Sharing insights on software development, design, and entrepreneurship.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0091ff",
+  "orientation": "portrait-primary",
+  "categories": ["blog", "technology", "business", "education"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
-import { WebIcon, TwitterIcon, GitHubIcon, LinkedinIcon } from "./icons/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { GitHubIcon, TwitterIcon, WebIcon } from "./icons/icons";
 
 interface Props {
   variant?: "navbar" | "footer";
@@ -24,12 +24,6 @@ const socialLinks = [
     label: "Follow Aryan on Twitter",
     tooltip: "Twitter",
     icon: TwitterIcon,
-  },
-  {
-    href: "https://linkedin.com/in/aryanranderiya",
-    label: "Follow Aryan on LinkedIn",
-    tooltip: "LinkedIn",
-    icon: LinkedinIcon,
   },
   {
     href: "https://github.com/aryanranderiya/blog",
