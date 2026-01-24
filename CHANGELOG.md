@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/aryanranderiya/blog/compare/v1.1.0...v1.2.0) (2025-10-18)
+
+
+### Features
+
+* enhance SEO and metadata across the blog, add security and humans files ([e314e8f](https://github.com/aryanranderiya/blog/commit/e314e8f125af0447ec4a24ae8ba06c14e23a05e3))
+
 ## [1.1.0](https://github.com/aryanranderiya/blog/compare/v1.0.0...v1.1.0) (2025-09-19)
 
 
